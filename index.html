@@ -5,133 +5,118 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
     <title>CHBARI Amine</title>
 </head>
 
-<body class=" font-sans">
-    <header
-        class="inset-x-0 flex flexbox justify-between px-8 py-3 shadow-md fixed z-10 top-0 bg-gradient-to-r from-red-800 to-blue-700 text-blue-700 rounded-b-lg border-b-4 border-white">
+<body class="font-sans bg-black text-white">
+    <header class="fixed top-0 left-0 right-0 z-10 p-3 bg-black border-b border-indigo-900">
         <nav>
-            <ul class="flex items-center space-x-4">
-                <li class="navItem"><a href="#about"
-                        class="text-white active:text-purple-600 font-bold text-xl mx-1 hover:underline">About</a></li>
-                <li class="navItem"><a href="#projects"
-                        class="text-white active:text-purple-600 font-bold text-xl mx-1 hover:underline">Projects</a>
-                </li>
-                <li class="navItem"><a href="#skills"
-                        class="text-white active:text-purple-600 font-bold text-xl mx-1 hover:underline">Skills</a></li>
-                <li class="navItem"><a href="#contact"
-                        class="text-white active:text-purple-600 font-bold text-xl mx-1 hover:underline">Contact</a>
-                </li>
-            </ul>
+            <div class="flex justify-between items-center">
+                <ul class="flex items-center space-x-4">
+                    <li class="navItem"><a id="nav-about" data-i18n="nav.about" href="#about" class="neon-text font-bold text-sm md:text-lg mx-1">À propos</a></li>
+                    <li class="navItem"><a id="nav-projects" data-i18n="nav.projects" href="#projects" class="neon-text font-bold text-sm md:text-lg mx-1">Projets</a></li>
+                    <li class="navItem"><a id="nav-skills" data-i18n="nav.skills" href="#skills" class="neon-text font-bold text-sm md:text-lg mx-1">Compétences</a></li>
+                    <li class="navItem"><a id="nav-contact" data-i18n="nav.contact" href="#contact" class="neon-text font-bold text-sm md:text-lg mx-1">Contact</a></li>
+                </ul>
+                <button id="langToggle" class="view-github" aria-label="Language toggle">EN</button>
+            </div>
         </nav>
     </header>
 
-    <main class="mt-16">
+    <main class="mt-20">
         <div class="flex items-center text-dark">
             <a href="#" class="text-xl font-bold"></a>
         </div>
-        <section id="about" class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 py-12 bg-white">
+        <section class="hero relative flex items-center justify-center text-center py-20">
+            <div class="max-w-3xl px-4">
+                <h1 id="hero-title" data-i18n="hero.title" class="text-2xl md:text-4xl mb-4" style="font-family: 'Press Start 2P', monospace; color: var(--neon-yellow); text-shadow: 0 0 8px rgba(255,209,102,0.18), 0 0 18px rgba(255,45,149,0.04);">Salut !</h1>
+                <p id="hero-lead" data-i18n="hero.lead" class="text-sm md:text-base text-gray-300 mb-6">Portfolio rétro présentant mes projets et de petits Démos.</p>
+            </div>
+        </section>
+        <section id="about" class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 py-12 items-center">
             <div class="flex justify-center items-center">
-                <img src="./images/face2.jpeg" alt="Profile picture" class="w-64 h-64 object-cover rounded-full">
+                <img src="./images/main_portfolio_image.jpg" alt="Profile picture" class="w-64 h-64 object-cover rounded-full arcade-avatar">
             </div>
             <div class="flex flex-col justify-center items-start">
-                <h2 class="text-2xl text-gray-800 mb-4">Hello, I'm <span class="font-bold text-4xl">CHBARI Amine</span>.
+                <h2 id="about-heading" data-i18n="about.heading" class="text-2xl mb-4 about-heading">Bonjour, je suis <span id="about-name" data-i18n="about.name" class="font-bold about-name">CHBARI Amine</span>.
                 </h2>
-                <p class="text-gray-600 leading-relaxed">I am a passionate computer science student in my third year at
-                    the University of Lille, France. I am proficient in various programming languages. I have a strong
-                    interest in web development and enjoy creating engaging and interactive experiences for users.
-                    Additionally, I am fascinated by the world of game development and have a knack for crafting
-                    creative and complex mini-games.</p>
+                <p id="about-para" data-i18n="about.para" class="about-para leading-relaxed">Je suis actuellement étudiant en Master 1 E‑services à l'Université de Lille. Passionné par l'informatique, je maîtrise plusieurs langages de programmation et je m'intéresse fortement au développement web ainsi qu'à la création de mini-jeux interactifs et ludiques. J'aime concevoir des expériences utilisateur immersives et créatives.</p>
             </div>
         </section>
 
 
-
-        <section id="projects" class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 py-12 bg-gray-100">
-            <h2 class="text-3xl font-bold text-gray-800 col-span-full mb-8 text-center">Projects
+    <section id="projects" class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 py-12 projects-section">
+            <h2 id="projects-heading" data-i18n="projects.heading" class="text-2xl md:text-3xl font-bold col-span-full mb-8 text-center" style="font-family: 'Press Start 2P', monospace; color: #39FF14; text-shadow: 0 0 10px rgba(57,255,20,0.4), 0 0 20px rgba(57,255,20,0.2), 0 0 30px rgba(255,45,149,0.1);">Quelques projets</h2>
             </h2>
-            <div class="card hover:shadow-lg transition duration-300 ease-in-out">
+            <div class="card arcade-card hover:shadow-lg transition duration-300 ease-in-out">
                 <img id="myImg" src="./images/acceuil.png" alt="Motel reservation Website"
                     class="w-full h-48 object-cover">
                 <div class="m-4">
-                    <span class="font-bold text-indigo-600 text-sm uppercase">Responsive Website</span>
-                    <h3 class="font-bold text-gray-900 text-xl mt-2">Motel Reservation</h3>
-                    <p class="text-gray-700 mt-3">A responsive website that adapts to different screen sizes and devices
-                        using modern web technologies. Offers a seamless booking experience for guests seeking
-                        comfortable accommodations. Visitors can explore available rooms 🏨, select check-in/check-out
-                        dates.📅</p>
+                    <span id="project1-type" data-i18n="project1.type" class="font-bold text-indigo-600 text-sm uppercase">Site responsive</span>
+                    <h3 id="project1-title" data-i18n="project1.title" class="font-bold text-gray-900 text-xl mt-2">Réservation de Motel</h3>
+                    <p id="project1-desc" data-i18n="project1.desc" class="text-gray-700 mt-3">Site réactif adapté aux différentes tailles d'écran. Permet une expérience de réservation fluide avec sélection des chambres et des dates.</p>
                 </div>
                 <div class="flex justify-between items-center m-4">
-                    <span class="text-gray-600">2022</span>
+                    <span id="project1-year" data-i18n="project1.year" class="text-gray-600">2022</span>
                 </div>
             </div>
-            <div class="card hover:shadow-lg transition duration-300 ease-in-out">
+            <div class="card arcade-card hover:shadow-lg transition duration-300 ease-in-out">
                 <img id="myImg" src="./images/bird game on.jpg" alt="Hit the target" class="w-full h-48 object-cover">
                 <div class="m-4">
-                    <span class="font-bold text-indigo-600 text-sm uppercase">Mini game</span>
-                    <h3 class="font-bold text-gray-900 text-xl mt-2">Hit the target</h3>
-                    <p class="text-gray-700 mt-3">A browser-based archery game where players aim to hit a stationary
-                        bullseye using arrows. Beware of randomly flying birds—colliding with them deducts points!</p>
+                    <span id="project2-type" data-i18n="project2.type" class="font-bold text-indigo-600 text-sm uppercase">Mini-jeu</span>
+                    <h3 id="project2-title" data-i18n="project2.title" class="font-bold text-gray-900 text-xl mt-2">Frapper la cible</h3>
+                    <p id="project2-desc" data-i18n="project2.desc" class="text-gray-700 mt-3">Un jeu d'archerie dans le navigateur : visez la cible fixe. Attention aux oiseaux volants qui retirent des points en cas de collision.</p>
                 </div>
                 <div class="flex justify-between items-center m-4">
-                    <span class="text-gray-600">2023</span>
+                    <span id="project2-year" data-i18n="project2.year" class="text-gray-600">2023</span>
                 </div>
             </div>
-            <div class="card hover:shadow-lg transition duration-300 ease-in-out">
+            <div class="card arcade-card hover:shadow-lg transition duration-300 ease-in-out">
                 <img id="myImg" src="./images/pong on.jpg" alt="Ping Pong" class="w-full h-48 object-cover">
                 <div class="m-4">
-                    <span class="font-bold text-indigo-600 text-sm uppercase">Mini game</span>
-                    <h3 class="font-bold text-gray-900 text-xl mt-2">Ping Pong</h3>
-                    <p class="text-gray-700 mt-3">A two-player JavaScript game featuring responsive design and dynamic
-                        ball movement. Control paddles with arrow keys.</p>
+                    <span id="project3-type" data-i18n="project3.type" class="font-bold text-indigo-600 text-sm uppercase">Mini-jeu</span>
+                    <h3 id="project3-title" data-i18n="project3.title" class="font-bold text-gray-900 text-xl mt-2">Ping Pong</h3>
+                    <p id="project3-desc" data-i18n="project3.desc" class="text-gray-700 mt-3">Jeu à deux en JavaScript avec mouvements de balle dynamiques et commandes au clavier pour les raquettes.</p>
                 </div>
                 <div class="flex justify-between items-center m-4">
-                    <span class="text-gray-600">2023</span>
+                    <span id="project3-year" data-i18n="project3.year" class="text-gray-600">2023</span>
                 </div>
             </div>
-            <div class="card hover:shadow-lg transition duration-300 ease-in-out">
+            <div class="card arcade-card hover:shadow-lg transition duration-300 ease-in-out">
                 <img id="myImg" src="./images/boutique.jpg" alt="Digital shop for plushies"
                     class="w-full h-48 object-cover">
                 <div class="m-4">
-                    <span class="font-bold text-indigo-600 text-sm uppercase">React components</span>
-                    <h3 class="font-bold text-gray-900 text-xl mt-2">Digital shop for plushies</h3>
-                    <p class="text-gray-700 mt-3"> An adorable online store built with React. Visitors can explore a
-                        delightful collection of cuddly plush toys, each accompanied by images, descriptions, and
-                        prices. The shopping experience includes adding plushies to the cart and viewing total costs.
-                        🧸🛒</p>
+                    <span id="project4-type" data-i18n="project4.type" class="font-bold text-indigo-600 text-sm uppercase">Composants React</span>
+                    <h3 id="project4-title" data-i18n="project4.title" class="font-bold text-gray-900 text-xl mt-2">Boutique de peluches</h3>
+                    <p id="project4-desc" data-i18n="project4.desc" class="text-gray-700 mt-3">Une boutique en ligne réalisée en React présentant une collection de peluches avec ajout au panier et calcul du total.</p>
                 </div>
                 <div class="flex justify-between items-center m-4">
-                    <span class="text-gray-600">2023</span>
+                    <span id="project4-year" data-i18n="project4.year" class="text-gray-600">2023</span>
                 </div>
             </div>
-            <div class="card hover:shadow-lg transition duration-300 ease-in-out">
+            <div class="card arcade-card hover:shadow-lg transition duration-300 ease-in-out">
                 <img id="myImg" src="./images/pndmc.jpg" alt="Pandemic game" class="w-full h-48 object-cover">
                 <div class="m-4">
-                    <span class="font-bold text-indigo-600 text-sm uppercase">Strategy game</span>
-                    <h3 class="font-bold text-gray-900 text-xl mt-2">Pandemic Game</h3>
-                    <p class="text-gray-700 mt-3">A collaborative game where players work together to prevent global
-                        disease outbreaks. In the terminal, players manage cities, treat infections, and strategize to
-                        find cures. Balancing resources and teamwork are crucial for victory! 🌍</p>
+                    <span id="project5-type" data-i18n="project5.type" class="font-bold text-indigo-600 text-sm uppercase">Jeu de stratégie</span>
+                    <h3 id="project5-title" data-i18n="project5.title" class="font-bold text-gray-900 text-xl mt-2">Jeu de Pandémie</h3>
+                    <p id="project5-desc" data-i18n="project5.desc" class="text-gray-700 mt-3">Jeu coopératif de gestion de pandémie : gérez les villes, soignez les infections et coopérez pour trouver des remèdes.</p>
                 </div>
                 <div class="flex justify-between items-center m-4">
-                    <span class="text-gray-600">2023</span>
+                    <span id="project5-year" data-i18n="project5.year" class="text-gray-600">2023</span>
                 </div>
             </div>
-            <div class="card hover:shadow-lg transition duration-300 ease-in-out">
+            <div class="card arcade-card hover:shadow-lg transition duration-300 ease-in-out">
                 <img id="myImg" src="./images/prtf.jpg" alt="my Portfolio" class="w-full h-48 object-cover">
                 <div class="m-4">
-                    <span class="font-bold text-indigo-600 text-sm uppercase">personal Website</span>
-                    <h3 class="font-bold text-gray-900 text-xl mt-2">Portfolio</h3>
-                    <p class="text-gray-700 mt-3">A dynamic website showcasing my creative work and technical skills.
-                        From an engaging home page to detailed project sections, it highlights my expertise in codding
-                        and web development. With responsive design and a touch of interactivity, it invites visitors to
-                        explore my journey and get in touch.</p>
+                    <span id="project6-type" data-i18n="project6.type" class="font-bold text-indigo-600 text-sm uppercase">Site personnel</span>
+                    <h3 id="project6-title" data-i18n="project6.title" class="font-bold text-gray-900 text-xl mt-2">Portfolio</h3>
+                    <p id="project6-desc" data-i18n="project6.desc" class="text-gray-700 mt-3">Site dynamique présentant mes projets et compétences, avec design responsive et éléments d'interaction.</p>
                 </div>
                 <div class="flex justify-between items-center m-4">
-                    <span class="text-gray-600">2023</span>
+                    <span id="project6-year" data-i18n="project6.year" class="text-gray-600">2023</span>
                 </div>
             </div>
             <div id="myModal" class="modal">
@@ -139,14 +124,14 @@
                 <img class="modal-content" id="img01">
                 <div id="caption"></div>
             </div>
-            <span
-                class="text-2xl font-bold underline text-blue-600 hover:text-purple-600 text-right col-span-full mb-8"><a
-                    href="https://github.com/AmineChbari/projects/tree/main/">View in Github</a></span>
         </section>
+        <div class="flex justify-center items-center py-12">
+            <a href="https://github.com/AmineChbari" target="_blank" rel="noopener" class="view-github text-2xl font-bold px-8 py-4 hover:scale-110 transition duration-300">Voir Mon GitHub</a>
+        </div>
 
 
         <section id="skills" class="mb-28 max-w-[58rem] scroll-mt-28 text-center sm:mb-40 my-20">
-            <h2 class="text-3xl font-bold text-gray-800 col-span-full mb-8">My skills</h2>
+            <h2 class="text-3xl font-bold neon-text col-span-full mb-8" style="font-family: 'Press Start 2P', monospace;">Compétences</h2>
             <ul class="flex flex-wrap justify-center gap-2 text-lg text-gray-800">
 
                 <li class="flex flex-col items-center px-4 py-3 dark:text-white/80"
@@ -443,31 +428,65 @@
         <section id="contact" class="flex flex-col md:flex-row justify-between items-center px-4 py-12 bg-gray-100">
 
             <div class="w-full md:w-1/2 mb-8 md:mb-0">
-                <h2 class="text-3xl font-bold text-gray-800 mb-4">Contact Me</h2>
+                <h2 class="text-3xl font-bold text-gray-800 mb-4">Me Contacter</h2>
                 <br>
-                <p class="text-gray-600 leading-relaxed">Got a project in mind or want to collaborate? I would love to
-                    hear from you!<br> Feel free to reach out using the contact form or directly at<br>
+                <p data-i18n="contact" class="text-gray-600 leading-relaxed">Vous avez un projet en tête ou vous voulez collaborer? J'aimerais beaucoup
+                    vous entendre !<br> N'hésitez pas à me contacter via le formulaire de contact ou directement à<br>
                     <b class="hover:underline">aminechbaibar@gmail.com</b> .
                 </p>
             </div>
         </section>
     </main>
     <footer
-        class="flex flex-col md:flex-row justify-center items-center px-4 py-6 bg-gradient-to-r from-blue-700 to-red-800 rounded-t-lg border-t-4">
-        <!-- Use text utilities to style your name and location -->
+        class="flex flex-col md:flex-row justify-center items-center px-4 py-6 rounded-t-lg border-t-4">
         <div class="text-white">
-            <p class="font-bold text-lg">&copy; 2023 CHBARI Amine</p>
-            <p class="text-sm">Lille, Hauts-de-France, France</p>
-            <div class="flex items-center justify-center mt-4"> <a href="https://github.com/AmineChbari/projects" class="text-gray-600 hover:text-indigo-600 transition duration-300 ease-in-out">
+            <p class="font-bold text-lg">&copy; 2026 CHBARI Amine</p>
+            <p class="text-sm text-center">Lille, Hauts-de-France, France<br>
+                <a href="https://github.com/AmineChbari/projects" rel="noopener" class="text-gray-600 hover:text-indigo-600 transition duration-300 ease-in-out">
                 <i class="fab fa-github fa-lg mr-4"></i>
               </a>
               <a href="https://linkedin.com/in/amine-chbari-103680221" class="text-gray-600 hover:text-indigo-600 transition duration-300 ease-in-out">
                 <i class="fab fa-linkedin fa-lg"></i>
               </a>
-            </div>
+              </p>
           </div>
           
     </footer>
+    
+    
+    
+    <script>
+
+        let currentLang = 'fr';
+
+        function setLanguage(lang) {
+            currentLang = lang;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                const keys = key.split('.');
+                let value = translations[lang];
+                for (let k of keys) {
+                    if (value && typeof value === 'object') {
+                        value = value[k];
+                    } else {
+                        value = undefined;
+                        break;
+                    }
+                }
+                if (value !== undefined) {
+                    el.textContent = value;
+                }
+            });
+            document.getElementById('langToggle').textContent = lang === 'fr' ? 'EN' : 'FR';
+        }
+
+        document.getElementById('langToggle').addEventListener('click', () => {
+            const newLang = currentLang === 'fr' ? 'en' : 'fr';
+            setLanguage(newLang);
+        });
+
+        setLanguage('fr');
+    </script>
     <script>
         const modal = document.getElementById("myModal");
         const imgs = document.querySelectorAll("#myImg");

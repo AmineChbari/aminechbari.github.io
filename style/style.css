@@ -139,3 +139,280 @@ svg,
     width: 100%;
   }
 }
+
+/* ---------------- Arcade / Retro Styles ---------------- */
+:root{
+  --neon-cyan: #00f5ff;
+  --neon-pink: #ff2d95;
+  --neon-yellow: #ffd166;
+  --glass: rgba(255,255,255,0.04);
+}
+
+body{
+  background:
+    radial-gradient(circle at 10% 10%, rgba(255,45,149,0.035), transparent 10%),
+    radial-gradient(circle at 90% 90%, rgba(0,245,255,0.02), transparent 12%),
+    #000000;
+  color: #e6f7ff;
+}
+
+.hero{min-height:200px}
+
+.neon-text{
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 6px rgba(0,245,255,0.25),
+    0 0 14px rgba(0,245,255,0.12),
+    0 0 24px rgba(255,45,149,0.04);
+  font-family: 'Press Start 2P', monospace;
+}
+
+.glow-border{
+  border-color: rgba(0,245,255,0.18);
+  box-shadow: 0 6px 18px rgba(0,245,255,0.06), inset 0 0 12px rgba(255,45,149,0.02);
+  color: var(--neon-yellow);
+  transition: transform .12s ease, box-shadow .12s ease;
+}
+.glow-border:hover{transform: translateY(-3px); box-shadow: 0 8px 26px rgba(0,245,255,0.12)}
+
+.arcade-card{
+  background: linear-gradient(180deg, rgba(57,255,20,0.05), rgba(57,255,20,0.02));
+  border: 2px solid rgba(57,255,20,0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.arcade-card:hover{transform: translateY(-6px); box-shadow: 0 18px 50px rgba(57,255,20,0.15)}
+
+.arcade-card img{border-bottom:2px solid rgba(57,255,20,0.1)}
+
+.arcade-card span {
+  color: #39FF14 !important;
+  text-shadow: 0 0 8px rgba(57,255,20,0.3);
+  font-family: 'Press Start 2P', monospace;
+}
+
+/* use pixel font for small captions where appropriate */
+.project-title, .project-description{font-family: 'Press Start 2P', monospace; font-size: 12px,}
+
+/* make modal image a bit more arcade-friendly */
+.modal-content{border:4px solid rgba(0,245,255,0.06); box-shadow: 0 20px 60px rgba(0,0,0,0.8)}
+
+/* responsive tweaks */
+@media (max-width:640px){
+  .neon-text{font-size:12px}
+  .project-title, .project-description{font-size:9px}
+}
+
+/* About section arcade styling */
+.arcade-avatar{
+  border: 8px solid rgba(255,255,255,0.06);
+  box-shadow:
+    0 0 18px rgba(0,245,255,0.12),
+    0 0 36px rgba(255,45,149,0.06),
+    inset 0 0 12px rgba(255,255,255,0.02);
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.arcade-avatar:hover{transform: translateY(-6px); box-shadow: 0 30px 80px rgba(0,245,255,0.12)}
+
+.about-heading{
+  font-family: 'Press Start 2P', monospace;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 8px rgba(0,245,255,0.18), 0 0 20px rgba(255,45,149,0.03);
+  font-size: 1rem; /* Press Start is large by default; we keep readable size */
+}
+.about-name{
+  display: inline-block;
+  color: var(--neon-pink);
+  font-size: 1.25rem;
+  text-shadow: 0 0 10px rgba(255,45,149,0.25), 0 0 22px rgba(0,245,255,0.04);
+}
+.about-para{
+  color: rgba(230,247,255,0.88);
+  max-width: 58ch;
+  margin-top: 6px;
+}
+
+@media (max-width:768px){
+  .about-name{font-size:1rem}
+  .about-heading{font-size:0.95rem}
+}
+
+/* Skills, contact and footer: neon adaptations */
+#skills {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+#skills ul li span{
+  display:block;
+  margin-top:0.5rem;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.8rem;
+  color: rgba(0,245,255,0.9);
+  text-shadow: 0 0 8px rgba(0,245,255,0.12), 0 0 18px rgba(255,45,149,0.02);
+}
+
+/* alternate colors for visual interest */
+#skills ul li:nth-child(2n) span{ color: var(--neon-pink); text-shadow: 0 0 8px rgba(255,45,149,0.18);} 
+#skills ul li:nth-child(3n) span{ color: var(--neon-yellow); text-shadow: 0 0 8px rgba(255,209,102,0.15);} 
+
+/* Contact section neon */
+#contact{ background: rgba(0,0,0,0.6); }
+#contact h2{
+  font-family: 'Press Start 2P', monospace;
+  color: var(--neon-cyan);
+  text-shadow: 0 0 10px rgba(0,245,255,0.18), 0 0 26px rgba(255,45,149,0.03);
+}
+#contact p, #contact b {
+  color: rgba(230,247,255,0.9);
+}
+#contact b{ color: var(--neon-yellow); text-shadow: 0 0 8px rgba(255,209,102,0.12); }
+
+/* Footer neon styling */
+footer{ background: transparent; border-top-color: rgba(0,245,255,0.04); }
+footer .font-bold{ color: var(--neon-yellow); font-family: 'Press Start 2P', monospace; text-shadow: 0 0 8px rgba(255,209,102,0.12);} 
+footer p.text-sm{ color: rgba(230,247,255,0.6); }
+footer a{ color: rgba(0,245,255,0.9); text-shadow: 0 0 8px rgba(0,245,255,0.12); }
+
+@media (max-width:640px){
+  #skills ul li span{ font-size:0.7rem }
+}
+
+/* Improved skills grid and neon badges */
+.skills-grid{
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1.6rem 2.4rem;
+  justify-items: center;
+  align-items: start;
+  max-width: 1100px;
+}
+
+.skills-grid li{
+  position: relative;
+  width: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.4rem;
+  padding-top: 56px; /* space for the circular badge */
+  z-index: 1;
+}
+
+.skills-grid li::before{
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(0,245,255,0.10), rgba(255,45,149,0.04));
+  box-shadow: 0 10px 30px rgba(0,0,0,0.6), 0 6px 30px rgba(0,245,255,0.06), inset 0 0 18px rgba(255,255,255,0.02);
+  transition: transform .18s ease, box-shadow .18s ease, opacity .18s ease;
+  z-index: 0;
+}
+
+.skills-grid li:hover::before{
+  transform: translateX(-50%) scale(1.06);
+  box-shadow: 0 22px 50px rgba(0,245,255,0.10), 0 0 48px rgba(255,45,149,0.04), inset 0 0 20px rgba(255,255,255,0.02);
+}
+
+.skills-grid li svg{
+  width: 64px;
+  height: 64px;
+  position: relative;
+  z-index: 2;
+  transition: transform .18s ease, filter .18s ease;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+}
+
+.skill-logo{
+  width: 72px;
+  height: 72px;
+  position: relative;
+  z-index: 2;
+  transition: transform .18s ease, filter .18s ease;
+  filter: drop-shadow(0 8px 18px rgba(0,0,0,0.6));
+}
+
+.skills-grid li:hover svg{ transform: translateY(-6px) scale(1.06); filter: drop-shadow(0 12px 26px rgba(0,245,255,0.12)); }
+
+.skills-grid li:hover .skill-logo{ transform: translateY(-6px) scale(1.06); filter: drop-shadow(0 12px 26px rgba(0,245,255,0.12)); }
+
+.skills-grid li span{
+  margin-top: 6px;
+  z-index: 2;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.72rem;
+  color: var(--neon-cyan);
+  opacity: 0.95;
+  text-shadow: 0 0 6px rgba(0,245,255,0.06);
+}
+
+/* Make the skills heading larger and centered */
+#skills .neon-text{ font-size: 2.4rem; margin-bottom: 1.2rem }
+
+/* Contact card polish */
+#contact{ background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:10px; padding:2rem; border:1px solid rgba(0,245,255,0.03); }
+#contact h2{ text-align:left }
+
+/* Footer polish */
+footer{ background: transparent; padding-top:1.5rem; padding-bottom:1.5rem }
+footer .font-bold{ letter-spacing: 0.06em }
+
+/* small screen tweaks for skills grid */
+@media (max-width:640px){
+  .skills-grid{ grid-template-columns: repeat(2, 1fr); gap:1rem }
+  .skills-grid li{ width: 110px; padding-top:48px }
+  .skills-grid li::before{ width:78px; height:78px; top:8px }
+  #skills .neon-text{ font-size:1.6rem }
+}
+
+/* View on GitHub link - arcade neon style */
+.view-github{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Press Start 2P', monospace;
+  color: var(--neon-yellow);
+  padding: 12px 24px;
+  margin: 0 auto;
+  border: 2px solid rgba(255,209,102,0.12);
+  border-radius: 8px;
+  text-decoration: none;
+  box-shadow: 0 10px 30px rgba(255,209,102,0.12), inset 0 0 8px rgba(255,45,149,0.04);
+  text-shadow: 0 0 8px rgba(255,209,102,0.18), 0 0 18px rgba(255,45,149,0.04);
+  transition: transform .12s ease, box-shadow .12s ease, color .12s ease;
+  width: fit-content;
+}
+.view-github:hover{
+  transform: translateY(-4px);
+  box-shadow: 0 18px 50px rgba(255,209,102,0.12), 0 0 34px rgba(0,245,255,0.06);
+  color: #fff;
+}
+
+/* Projects section neon backdrop */
+.projects-section{
+  background: radial-gradient(circle at 20% 20%, rgba(0,245,255,0.02), transparent 8%),
+              radial-gradient(circle at 80% 80%, rgba(255,45,149,0.02), transparent 10%),
+              rgba(0,0,0,0.65);
+  border-radius: 10px;
+  padding: 1.25rem;
+  border: 1px solid rgba(0,245,255,0.03);
+}
+
+/* Make header solid and add subtle neon edge */
+header{
+  background: rgba(0,0,0,0.98) !important;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.6), 0 0 18px rgba(0,245,255,0.02) inset;
+  border-bottom: 2px solid rgba(0,245,255,0.04);
+}
+
+/* Slightly increase skill svg size on larger screens to match layout */
+.skills-grid li svg{ width:72px; height:72px }
