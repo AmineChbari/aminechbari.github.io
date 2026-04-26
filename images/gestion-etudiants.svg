@@ -1,0 +1,74 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" width="800" height="480">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0d6b3a"/>
+      <stop offset="100%" stop-color="#0a3a26"/>
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0.04"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <circle cx="660" cy="60" r="180" fill="#ffffff" opacity="0.06"/>
+  <circle cx="80" cy="430" r="140" fill="#ffffff" opacity="0.06"/>
+
+  <!-- Mock UI: list of student rows -->
+  <g transform="translate(60, 80)">
+    <rect width="380" height="320" rx="14" fill="url(#card)" stroke="#ffffff" stroke-opacity="0.18"/>
+    <text x="22" y="40" font-family="Segoe UI, sans-serif" font-size="16" font-weight="700" fill="#ffffff">Étudiants</text>
+    <rect x="290" y="22" width="74" height="26" rx="13" fill="#22c55e" opacity="0.85"/>
+    <text x="304" y="40" font-family="Segoe UI" font-size="12" font-weight="700" fill="#ffffff">+ Ajouter</text>
+
+    <g font-family="Segoe UI" font-size="13" fill="#e8efe6">
+      <g transform="translate(0,70)">
+        <rect x="14" y="0" width="352" height="42" rx="8" fill="#ffffff" opacity="0.05"/>
+        <circle cx="34" cy="21" r="11" fill="#34d399"/>
+        <text x="56" y="20" font-weight="700" fill="#ffffff">S001 — Dupont, Marie</text>
+        <text x="56" y="35" fill="#a8c9b3">Groupe 1</text>
+      </g>
+      <g transform="translate(0,122)">
+        <rect x="14" y="0" width="352" height="42" rx="8" fill="#ffffff" opacity="0.05"/>
+        <circle cx="34" cy="21" r="11" fill="#fbbf24"/>
+        <text x="56" y="20" font-weight="700" fill="#ffffff">S002 — Martin, Léo</text>
+        <text x="56" y="35" fill="#a8c9b3">Groupe 3</text>
+      </g>
+      <g transform="translate(0,174)">
+        <rect x="14" y="0" width="352" height="42" rx="8" fill="#ffffff" opacity="0.05"/>
+        <circle cx="34" cy="21" r="11" fill="#60a5fa"/>
+        <text x="56" y="20" font-weight="700" fill="#ffffff">S003 — Bernard, Camille</text>
+        <text x="56" y="35" fill="#a8c9b3">Non assignée</text>
+      </g>
+      <g transform="translate(0,226)">
+        <rect x="14" y="0" width="352" height="42" rx="8" fill="#ffffff" opacity="0.05"/>
+        <circle cx="34" cy="21" r="11" fill="#a78bfa"/>
+        <text x="56" y="20" font-weight="700" fill="#ffffff">S004 — Petit, Yanis</text>
+        <text x="56" y="35" fill="#a8c9b3">Groupe 2</text>
+      </g>
+    </g>
+  </g>
+
+  <!-- Right side: title, badge, tags -->
+  <g transform="translate(480, 110)">
+    <text font-family="Segoe UI Emoji, sans-serif" font-size="78">🎓</text>
+    <text y="120" font-family="Segoe UI" font-size="40" font-weight="800" fill="#ffffff">Gestion</text>
+    <text y="158" font-family="Segoe UI" font-size="40" font-weight="800" fill="#ffffff">Étudiants</text>
+    <text y="200" font-family="Segoe UI" font-size="15" fill="#cce6d3">Répartition automatique en 1–6 groupes</text>
+    <text y="222" font-family="Segoe UI" font-size="15" fill="#cce6d3">API REST · Mongoose · Pug</text>
+
+    <g font-family="Consolas" font-size="13" font-weight="700" fill="#ffffff">
+      <g transform="translate(0, 246)">
+        <rect width="74" height="26" rx="13" fill="#ffffff" opacity="0.18"/>
+        <text x="14" y="18">Node.js</text>
+      </g>
+      <g transform="translate(82, 246)">
+        <rect width="76" height="26" rx="13" fill="#ffffff" opacity="0.18"/>
+        <text x="14" y="18">Express</text>
+      </g>
+      <g transform="translate(166, 246)">
+        <rect width="92" height="26" rx="13" fill="#ffffff" opacity="0.18"/>
+        <text x="14" y="18">MongoDB</text>
+      </g>
+    </g>
+  </g>
+</svg>
