@@ -445,3 +445,50 @@ header{
 
 /* Slightly increase skill svg size on larger screens to match layout */
 .skills-grid li svg{ width:72px; height:72px }
+
+/* ── 3D Neon Background Canvas ─────────────────────────────────────── */
+#bg-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;          /* behind everything */
+  pointer-events: none; /* never blocks clicks */
+  display: block;
+}
+
+/* All page content sits above the 3D canvas */
+body > *:not(#bg-canvas) {
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Subtle CRT scanline overlay ────────────────────────────────────── */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.06) 2px,
+    rgba(0, 0, 0, 0.06) 4px
+  );
+}
+
+/* ── Vignette (darkens edges, focuses center) ───────────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 55%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}

@@ -12,6 +12,9 @@
 </head>
 
 <body class="font-sans bg-black text-white">
+
+    <!-- 3D neon background canvas (Three.js — pointer-events:none so it never blocks clicks) -->
+    <canvas id="bg-canvas"></canvas>
     <header class="fixed top-0 left-0 right-0 z-10 p-3 bg-black border-b border-indigo-900">
         <nav>
             <div class="flex justify-between items-center">
@@ -561,29 +564,7 @@
 
         setLanguage('fr');
     </script>
-    <script>
-        const modal = document.getElementById("myModal");
-        const imgs = document.querySelectorAll("#myImg");
-        imgs.forEach(function (img) {
-            img.addEventListener("click", function () {
-                const modalImg = document.getElementById("img01");
-                const captionText = document.getElementById("caption");
-
-                modal.style.display = "block";
-                modalImg.src = this.src;
-                captionText.innerHTML = this.alt;
-            });
-        });
-        const span = document.getElementsByClassName("close")[0];
-        span.onclick = function () {
-            modal.style.display = "none";
-        }
-        window.onclick = function (event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-    </script>
+    <script src="./scripts/background3d.js" defer></script>
 </body>
 
 </html>
