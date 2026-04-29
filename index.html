@@ -18,26 +18,40 @@
     <header class="fixed top-0 left-0 right-0 z-10 p-3 bg-black border-b border-indigo-900">
         <nav>
             <div class="flex justify-between items-center">
-                <ul class="flex items-center space-x-4">
-                    <li class="navItem"><a id="nav-about" data-i18n="nav.about" href="#about" class="neon-text font-bold text-sm md:text-lg mx-1">À propos</a></li>
-                    <li class="navItem"><a id="nav-projects" data-i18n="nav.projects" href="#projects" class="neon-text font-bold text-sm md:text-lg mx-1">Projets</a></li>
-                    <li class="navItem"><a id="nav-skills" data-i18n="nav.skills" href="#skills" class="neon-text font-bold text-sm md:text-lg mx-1">Compétences</a></li>
-                    <li class="navItem"><a id="nav-contact" data-i18n="nav.contact" href="#contact" class="neon-text font-bold text-sm md:text-lg mx-1">Contact</a></li>
+                <!-- Logo -->
+                <a href="#" class="nav-logo">&lt;AC /&gt;</a>
+
+                <!-- Links -->
+                <ul class="flex items-center space-x-1 md:space-x-2">
+                    <li><a id="nav-about"    data-i18n="nav.about"    href="#about"    class="nav-link">À propos</a></li>
+                    <li><a id="nav-projects" data-i18n="nav.projects" href="#projects" class="nav-link">Projets</a></li>
+                    <li><a id="nav-skills"   data-i18n="nav.skills"   href="#skills"   class="nav-link">Compétences</a></li>
+                    <li><a id="nav-contact"  data-i18n="nav.contact"  href="#contact"  class="nav-link">Contact</a></li>
                 </ul>
-                <button id="langToggle" class="view-github" aria-label="Language toggle">EN</button>
+
+                <!-- Lang toggle -->
+                <button id="langToggle" class="lang-toggle" aria-label="Language toggle">EN</button>
             </div>
         </nav>
     </header>
 
     <main class="mt-20">
-        <div class="flex items-center text-dark">
-            <a href="#" class="text-xl font-bold"></a>
-        </div>
-        <section class="hero relative flex items-center justify-center text-center py-20">
-            <div class="max-w-3xl px-4">
-                <h1 id="hero-title" data-i18n="hero.title" class="text-2xl md:text-4xl mb-4" style="font-family: 'Press Start 2P', monospace; color: var(--neon-yellow); text-shadow: 0 0 8px rgba(255,209,102,0.18), 0 0 18px rgba(255,45,149,0.04);">Salut !</h1>
-                <p id="hero-lead" data-i18n="hero.lead" class="text-sm md:text-base text-gray-300 mb-6">Portfolio rétro présentant mes projets et de petits Démos.</p>
-            </div>
+        <section class="hero relative flex flex-col items-center justify-center text-center px-4 py-24">
+
+            <!-- Decorative tag line -->
+            <p class="hero-tag" id="hero-tag" data-i18n="hero.tag">// M1 INGÉNIERIE LOGICIEL &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE</p>
+
+            <!-- Big name -->
+            <h1 class="hero-name" id="hero-title" data-i18n="hero.title">AMINE<br>CHBARI</h1>
+
+            <!-- Role + blinking cursor -->
+            <p class="hero-role">
+                <span id="hero-lead" data-i18n="hero.lead">FULL-STACK DEVELOPER</span><span class="blink-cursor">_</span>
+            </p>
+
+            <!-- CTA -->
+            <a href="#projects" class="hero-cta" id="hero-cta" data-i18n="hero.cta">&#x25B6;&nbsp; VOIR MES PROJETS</a>
+
         </section>
         <section id="about" class="grid grid-cols-1 md:grid-cols-2 gap-8 px-4 py-12 items-center">
             <div class="flex justify-center items-center">
@@ -458,14 +472,14 @@
         </section>
 
 
-        <section id="contact" class="flex flex-col md:flex-row justify-between items-center px-4 py-12 bg-gray-100">
+        <section id="contact" class="flex flex-col md:flex-row justify-between items-center px-4 py-12">
 
             <div class="w-full md:w-1/2 mb-8 md:mb-0">
-                <h2 data-i18n="contactHeading" class="text-3xl font-bold text-gray-800 mb-4">Me Contacter</h2>
+                <h2 data-i18n="contactHeading" class="text-3xl font-bold mb-4">Me Contacter</h2>
                 <br>
-                <p data-i18n="contact" class="text-gray-600 leading-relaxed">Vous avez un projet en tête ou vous voulez collaborer? J'aimerais beaucoup
-                    vous entendre !<br> N'hésitez pas à me contacter via le formulaire de contact ou directement à<br>
-                    <b class="hover:underline">aminechbaibar@gmail.com</b> .
+                <p data-i18n="contact" class="leading-relaxed">Vous avez un projet en tête ou vous voulez collaborer ? J'aimerais beaucoup
+                    vous entendre !<br> N'hésitez pas à me contacter directement à<br>
+                    <b class="hover:underline">aminechbari08@gmail.com</b>
                 </p>
             </div>
         </section>
@@ -492,7 +506,7 @@
         const translations = {
             fr: {
                 nav: { about: "À propos", projects: "Projets", skills: "Compétences", contact: "Contact" },
-                hero: { title: "Salut !", lead: "Portfolio rétro présentant mes projets et de petits Démos." },
+                hero: { tag: "// M1 INGÉNIERIE LOGICIEL &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE", title: "AMINE<br>CHBARI", lead: "FULL-STACK DEVELOPER", cta: "&#x25B6;&nbsp; VOIR MES PROJETS" },
                 about: {
                     heading: "Bonjour, je suis <span class='font-bold about-name'>CHBARI Amine</span>.",
                     para: "Étudiant en Master 1 Ingénierie Logiciel à l'ISCOD, en recherche d'alternance. Je travaille aussi bien côté front-end (Angular, React, JavaScript vanilla) que back-end (Node.js, Express, Java). De l'application web full-stack avec API REST et MongoDB jusqu'au jeu Canvas en passant par la simulation OOP avec design patterns, j'aime concevoir des expériences propres, maintenables et un peu spectaculaires."
@@ -509,11 +523,11 @@
                 viewGithub: "Voir Mon GitHub",
                 skillsHeading: "Compétences",
                 contactHeading: "Me Contacter",
-                contact: "Vous avez un projet en tête ou vous voulez collaborer ? J'aimerais beaucoup vous entendre !<br>N'hésitez pas à me contacter directement à<br><b class='hover:underline'>aminechbaibar@gmail.com</b>."
+                contact: "Vous avez un projet en tête ou vous voulez collaborer ? J'aimerais beaucoup vous entendre !<br>N'hésitez pas à me contacter directement à<br><b class='hover:underline'>aminechbari08@gmail.com</b>."
             },
             en: {
                 nav: { about: "About", projects: "Projects", skills: "Skills", contact: "Contact" },
-                hero: { title: "Hi !", lead: "Retro portfolio showcasing my projects and small demos." },
+                hero: { tag: "// M1 SOFTWARE ENGINEERING &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE", title: "AMINE<br>CHBARI", lead: "FULL-STACK DEVELOPER", cta: "&#x25B6;&nbsp; VIEW MY PROJECTS" },
                 about: {
                     heading: "Hello, I'm <span class='font-bold about-name'>CHBARI Amine</span>.",
                     para: "Master's student (M1 Software Engineering) at ISCOD, currently looking for a work-study contract (alternance). I work both front-end (Angular, React, vanilla JavaScript) and back-end (Node.js, Express, Java). From full-stack web apps with REST APIs and MongoDB to Canvas games and OOP simulations using design patterns — I enjoy building clean, maintainable and slightly spectacular experiences."
@@ -530,7 +544,7 @@
                 viewGithub: "View My GitHub",
                 skillsHeading: "Skills",
                 contactHeading: "Contact me",
-                contact: "Got a project in mind or want to collaborate? I'd love to hear from you!<br>Feel free to reach me directly at<br><b class='hover:underline'>aminechbaibar@gmail.com</b>."
+                contact: "Got a project in mind or want to collaborate? I'd love to hear from you!<br>Feel free to reach me directly at<br><b class='hover:underline'>aminechbari08@gmail.com</b>."
             }
         };
 

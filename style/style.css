@@ -446,6 +446,128 @@ header{
 /* Slightly increase skill svg size on larger screens to match layout */
 .skills-grid li svg{ width:72px; height:72px }
 
+/* ── Navbar logo ────────────────────────────────────────────────────── */
+.nav-logo {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.78rem;
+  color: var(--neon-yellow);
+  text-shadow: 0 0 10px rgba(255,209,102,0.30), 0 0 22px rgba(255,45,149,0.06);
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+  transition: color .15s ease, text-shadow .15s ease;
+}
+.nav-logo:hover {
+  color: #fff;
+  text-shadow: 0 0 18px rgba(255,209,102,0.55), 0 0 38px rgba(255,45,149,0.10);
+}
+
+/* ── Nav links ──────────────────────────────────────────────────────── */
+.nav-link {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.55rem;
+  color: rgba(0,245,255,0.60);
+  text-decoration: none;
+  letter-spacing: 0.06em;
+  padding: 6px 10px;
+  border-bottom: 2px solid transparent;
+  transition: color .18s ease, border-color .18s ease;
+}
+.nav-link:hover {
+  color: var(--neon-cyan);
+  border-bottom-color: rgba(0,245,255,0.50);
+}
+
+/* ── Lang toggle ────────────────────────────────────────────────────── */
+.lang-toggle {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.6rem;
+  color: rgba(0,245,255,0.70);
+  background: transparent;
+  border: 1px solid rgba(0,245,255,0.25);
+  border-radius: 4px;
+  padding: 6px 10px;
+  cursor: pointer;
+  letter-spacing: 0.08em;
+  transition: color .15s ease, border-color .15s ease, box-shadow .15s ease;
+}
+.lang-toggle:hover {
+  color: var(--neon-cyan);
+  border-color: rgba(0,245,255,0.55);
+  box-shadow: 0 0 12px rgba(0,245,255,0.10);
+}
+
+/* ── Hero redesign ──────────────────────────────────────────────────── */
+.hero-tag {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.52rem;
+  color: rgba(0,245,255,0.42);
+  letter-spacing: 0.14em;
+  margin-bottom: 2rem;
+}
+
+.hero-name {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(2.2rem, 9vw, 6rem);
+  line-height: 1.25;
+  color: var(--neon-yellow);
+  text-shadow:
+    0 0 24px rgba(255,209,102,0.40),
+    0 0 60px rgba(255,45,149,0.14),
+    5px 5px 0 rgba(255,45,149,0.18);   /* retro pixel offset shadow */
+  margin-bottom: 1.4rem;
+}
+
+.hero-role {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.55rem, 2vw, 0.85rem);
+  color: var(--neon-cyan);
+  letter-spacing: 0.12em;
+  margin-bottom: 3rem;
+}
+
+.blink-cursor {
+  color: var(--neon-pink);
+  animation: cursor-blink 1s step-end infinite;
+}
+@keyframes cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.hero-cta {
+  display: inline-block;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.72rem;
+  color: var(--neon-yellow);
+  border: 2px solid rgba(255,209,102,0.28);
+  border-radius: 6px;
+  padding: 16px 32px;
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  box-shadow: 0 0 22px rgba(255,209,102,0.06), inset 0 0 14px rgba(255,45,149,0.03);
+  transition: transform .14s ease, box-shadow .14s ease, color .14s ease, border-color .14s ease;
+  animation: hero-cta-pulse 2.8s ease-in-out infinite;
+}
+.hero-cta:hover {
+  transform: translateY(-4px);
+  color: #fff;
+  border-color: rgba(255,209,102,0.80);
+  box-shadow: 0 16px 44px rgba(255,209,102,0.18), 0 0 44px rgba(0,245,255,0.08);
+  animation: none;
+}
+@keyframes hero-cta-pulse {
+  0%, 100% { border-color: rgba(255,209,102,0.28); box-shadow: 0 0 22px rgba(255,209,102,0.06); }
+  50%       { border-color: rgba(255,209,102,0.65); box-shadow: 0 0 32px rgba(255,209,102,0.14); }
+}
+
+@media (max-width: 640px) {
+  .hero-tag  { font-size: 0.42rem; }
+  .hero-cta  { font-size: 0.58rem; padding: 12px 20px; }
+  .nav-link  { font-size: 0.46rem; padding: 4px 5px; }
+  .nav-logo  { font-size: 0.65rem; }
+}
+
 /* ── 3D Neon Background Canvas ─────────────────────────────────────── */
 #bg-canvas {
   position: fixed;
