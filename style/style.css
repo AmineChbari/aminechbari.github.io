@@ -55,12 +55,17 @@ svg,
 }
 
 .project-img {
-  border-radius: 5px;
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: contain;        /* image entière, pas de crop */
+  background-color: #06100A; /* fond sombre pour les marges letterbox */
+  border-radius: 6px 6px 0 0;
   cursor: pointer;
-  transition: 0.3s;
+  transition: opacity 0.25s ease;
 }
 
-.project-img:hover { opacity: 0.85; }
+.project-img:hover { opacity: 0.82; }
 
 /* The Modal (background) */
 .modal {
@@ -417,8 +422,18 @@ footer .font-bold{ letter-spacing: 0.06em }
               radial-gradient(circle at 80% 80%, rgba(255,45,149,0.02), transparent 10%),
               rgba(0,0,0,0.65);
   border-radius: 10px;
-  padding: 1.25rem;
+  padding: 2rem 1.5rem;
   border: 1px solid rgba(0,245,255,0.03);
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* About section max-width */
+#about {
+  max-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Make header solid and add subtle neon edge */
