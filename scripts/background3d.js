@@ -206,10 +206,13 @@
       gridMajor.position.z = gridScroll;
       gridMinor.position.z = gridScroll;
 
-      // Camera: subtle floating sway
+      // Camera: subtle floating sway + plongée liée au scroll
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const sp = maxScroll > 0 ? window.scrollY / maxScroll : 0;
       camera.position.x = Math.sin(t * 0.055) * 6;
-      camera.position.y = 10  + Math.cos(t * 0.042) * 3.5;
-      camera.lookAt(0, -4, 0);
+      camera.position.y = 10 + Math.cos(t * 0.042) * 3.5 - sp * 7;
+      camera.position.z = 55 - sp * 16;
+      camera.lookAt(0, -4 - sp * 4, 0);
 
       // Particle opacity pulse (very subtle)
       pmat.opacity = 0.55 + Math.sin(t * 0.6) * 0.06;

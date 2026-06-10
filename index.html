@@ -1,10 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.7/tailwind.min.css">
+    <meta name="description" content="Portfolio d'Amine Chbari — développeur full-stack (Angular, React, Node.js, Java), étudiant M1 Ingénierie Logiciel à l'ISCOD, en recherche d'alternance à Lille.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Amine Chbari — Développeur Full-Stack">
+    <meta property="og:description" content="Portfolio arcade néon : projets web full-stack, jeux Canvas, design patterns Java. En recherche d'alternance (M1 Ingénierie Logiciel, ISCOD).">
+    <meta property="og:url" content="https://aminechbari.github.io/">
+    <meta property="og:image" content="https://aminechbari.github.io/images/main_portfolio_image.jpg">
+    <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="./style/style.css">
@@ -22,15 +29,17 @@
                 <a href="#" class="nav-logo">&lt;AC /&gt;</a>
 
                 <!-- Links -->
-                <ul class="flex items-center space-x-1 md:space-x-2">
+                <ul id="navLinks" class="nav-links flex items-center space-x-1 md:space-x-2">
                     <li><a id="nav-about"    data-i18n="nav.about"    href="#about"    class="nav-link">À propos</a></li>
                     <li><a id="nav-projects" data-i18n="nav.projects" href="#projects" class="nav-link">Projets</a></li>
                     <li><a id="nav-skills"   data-i18n="nav.skills"   href="#skills"   class="nav-link">Compétences</a></li>
                     <li><a id="nav-contact"  data-i18n="nav.contact"  href="#contact"  class="nav-link">Contact</a></li>
                 </ul>
 
-                <!-- Lang toggle -->
-                <button id="langToggle" class="lang-toggle" aria-label="Language toggle">EN</button>
+                <div class="flex items-center gap-2">
+                    <button id="langToggle" class="lang-toggle" aria-label="Language toggle">EN</button>
+                    <button id="menuBtn" class="menu-btn" aria-label="Menu" aria-expanded="false">&#9776;</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -66,24 +75,27 @@
 
     <section id="projects" class="grid grid-cols-1 md:grid-cols-3 gap-8 px-4 py-12 projects-section">
             <h2 id="projects-heading" data-i18n="projects.heading" class="text-2xl md:text-3xl font-bold col-span-full mb-8 text-center" style="font-family: 'Press Start 2P', monospace; color: #39FF14; text-shadow: 0 0 10px rgba(57,255,20,0.4), 0 0 20px rgba(57,255,20,0.2), 0 0 30px rgba(255,45,149,0.1);">Quelques projets</h2>
-            </h2>
-            <a class="card-link" href="https://github.com/AmineChbari/codelens" target="_blank" rel="noopener noreferrer">
-            <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/codelens.svg" alt="CodeLens — AI Code Review SaaS">
-                <div class="m-4">
-                    <span id="codelens-type" data-i18n="codelens.type" class="font-bold text-indigo-600 text-sm uppercase">Next.js · TypeScript · Gemini AI</span>
-                    <h3 id="codelens-title" data-i18n="codelens.title" class="font-bold text-white text-xl mt-2">CodeLens — Review IA</h3>
-                    <p id="codelens-desc" data-i18n="codelens.desc" class="text-gray-300 mt-3">SaaS de review de code IA en streaming temps réel. Éditeur Monaco intégré, analyse structurée par catégorie et sévérité, URL partageable, historique persisté. Déployé sur Vercel.</p>
-                </div>
-                <div class="flex justify-between items-center m-4">
-                    <span id="codelens-year" data-i18n="codelens.year" class="text-gray-600">2026</span>
-                    <span style="font-size:0.7rem;padding:2px 8px;border:1px solid #00ffff44;border-radius:4px;color:#00ffff;font-family:monospace">&#9654; Live</span>
+            <div class="card arcade-card featured-card col-span-full">
+                <span class="featured-badge" data-i18n="codelens.badge">&#9733; PROJET PHARE</span>
+                <div class="featured-grid">
+                    <a href="https://codelens-mauve.vercel.app" target="_blank" rel="noopener noreferrer">
+                        <img class="project-img" loading="lazy" decoding="async" src="./images/codelens.svg" alt="CodeLens — AI Code Review SaaS">
+                    </a>
+                    <div class="featured-body">
+                        <span id="codelens-type" data-i18n="codelens.type" class="font-bold text-sm uppercase">Next.js · TypeScript · Gemini AI</span>
+                        <h3 id="codelens-title" data-i18n="codelens.title" class="font-bold text-white text-2xl mt-2">CodeLens — Review IA</h3>
+                        <p id="codelens-desc" data-i18n="codelens.desc" class="text-gray-300 mt-3">SaaS de review de code IA en streaming temps réel. Éditeur Monaco intégré, analyse structurée par catégorie et sévérité, URL partageable, historique persisté. Déployé sur Vercel.</p>
+                        <div class="featured-actions">
+                            <a href="https://codelens-mauve.vercel.app" target="_blank" rel="noopener noreferrer" class="featured-btn featured-btn-live" data-i18n="codelens.liveBtn">&#9654;&nbsp; ESSAYER EN LIVE</a>
+                            <a href="https://github.com/AmineChbari/codelens" target="_blank" rel="noopener noreferrer" class="featured-btn" data-i18n="codelens.codeBtn">&lt;/&gt;&nbsp; CODE SOURCE</a>
+                            <span id="codelens-year" data-i18n="codelens.year" class="featured-year">2026</span>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/others/motel%20reservation" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/motel.jpg" alt="Motel reservation Website">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/motel.jpg" alt="Motel reservation Website">
                 <div class="m-4">
                     <span id="project1-type" data-i18n="project1.type" class="font-bold text-indigo-600 text-sm uppercase">Angular · Node.js · Docker</span>
                     <h3 id="project1-title" data-i18n="project1.title" class="font-bold text-white text-xl mt-2">Réservation de Motel</h3>
@@ -96,7 +108,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/games/hit%20the%20target" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/hit-target.jpg" alt="Hit the target">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/hit-target.jpg" alt="Hit the target">
                 <div class="m-4">
                     <span id="project2-type" data-i18n="project2.type" class="font-bold text-indigo-600 text-sm uppercase">JavaScript · Canvas · Webpack</span>
                     <h3 id="project2-title" data-i18n="project2.title" class="font-bold text-white text-xl mt-2">Frapper la cible</h3>
@@ -109,7 +121,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/games/pong" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/pong.jpg" alt="Ping Pong">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/pong.jpg" alt="Ping Pong">
                 <div class="m-4">
                     <span id="project3-type" data-i18n="project3.type" class="font-bold text-indigo-600 text-sm uppercase">JavaScript · Canvas · Webpack</span>
                     <h3 id="project3-title" data-i18n="project3.title" class="font-bold text-white text-xl mt-2">Ping Pong</h3>
@@ -122,7 +134,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/others/boutique" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/boutique.jpg" alt="Digital shop for plushies">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/boutique.jpg" alt="Digital shop for plushies">
                 <div class="m-4">
                     <span id="project4-type" data-i18n="project4.type" class="font-bold text-indigo-600 text-sm uppercase">React · Hooks · CSS</span>
                     <h3 id="project4-title" data-i18n="project4.title" class="font-bold text-white text-xl mt-2">Boutique de peluches</h3>
@@ -135,7 +147,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/games/pandemic%20game" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/pandemic.jpg" alt="Pandemic game">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/pandemic.jpg" alt="Pandemic game">
                 <div class="m-4">
                     <span id="project5-type" data-i18n="project5.type" class="font-bold text-indigo-600 text-sm uppercase">Java · OOP · Design Patterns</span>
                     <h3 id="project5-title" data-i18n="project5.title" class="font-bold text-white text-xl mt-2">Jeu de Pandémie</h3>
@@ -148,7 +160,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/others/location-velos" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/vlille.jpg" alt="V'Lille — Java Swing GUI">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/vlille.jpg" alt="V'Lille — Java Swing GUI">
                 <div class="m-4">
                     <span id="project6-type" data-i18n="project6.type" class="font-bold text-indigo-600 text-sm uppercase">Java · OOP · Swing</span>
                     <h3 id="project6-title" data-i18n="project6.title" class="font-bold text-white text-xl mt-2">V'Lille — Réseau de location</h3>
@@ -161,7 +173,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/others/gestion-etudiants" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/gestion-etudiants.svg" alt="Gestion Étudiants">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/gestion-etudiants.svg" alt="Gestion Étudiants">
                 <div class="m-4">
                     <span id="project7-type" data-i18n="project7.type" class="font-bold text-indigo-600 text-sm uppercase">Node · Express · MongoDB</span>
                     <h3 id="project7-title" data-i18n="project7.title" class="font-bold text-white text-xl mt-2">Gestion Étudiants & Groupes</h3>
@@ -174,7 +186,7 @@
             </a>
             <a class="card-link" href="https://github.com/AmineChbari/projects/tree/main/others/vote" target="_blank" rel="noopener noreferrer">
             <div class="card arcade-card transition duration-300 ease-in-out">
-                <img class="project-img" src="./images/vote.jpg" alt="Vote en temps réel">
+                <img class="project-img" loading="lazy" decoding="async" src="./images/vote.jpg" alt="Vote en temps réel">
                 <div class="m-4">
                     <span id="project8-type" data-i18n="project8.type" class="font-bold text-indigo-600 text-sm uppercase">Node · Socket.IO</span>
                     <h3 id="project8-title" data-i18n="project8.title" class="font-bold text-white text-xl mt-2">Vote en temps réel</h3>
@@ -564,8 +576,9 @@
                 <br>
                 <p data-i18n="contact" class="leading-relaxed">Vous avez un projet en tête ou vous voulez collaborer ? J'aimerais beaucoup
                     vous entendre !<br> N'hésitez pas à me contacter directement à<br>
-                    <b class="hover:underline">aminechbari08@gmail.com</b>
+                    <a href="mailto:aminechbari08@gmail.com" class="hover:underline" style="color:var(--neon-yellow)"><b>aminechbari08@gmail.com</b></a>
                 </p>
+                <a href="./CV_Amine_Chbari.pdf" download class="cv-btn" data-i18n="cvBtn">&#x2B07;&nbsp; TÉLÉCHARGER MON CV</a>
             </div>
         </section>
     </main>
@@ -605,11 +618,12 @@
                 project6: { type: "Java · OOP · Swing", title: "V'Lille — Réseau de location", desc: "Simulation de stations de vélos / scooters avec interface Swing interactive et illustrations vectorielles. 6 design patterns GoF (Observer, Strategy, State, Decorator, Visitor, Mediator), 100 tests JUnit.", year: "2025" },
                 project7: { type: "Node · Express · MongoDB", title: "Gestion Étudiants & Groupes", desc: "App full-stack de gestion d'étudiants avec répartition automatique en 1 à 6 groupes. API REST CRUD, Mongoose, templates Pug, double rendu HTML/JSON via ?json=true.", year: "2024" },
                 project8: { type: "Node · Socket.IO", title: "Vote en temps réel", desc: "Application de vote temps réel avec interface admin et votant. Transmission via WebSocket, résultats actualisés instantanément, design glassmorphism.", year: "2024" },
-                codelens: { type: "Next.js · TypeScript · Gemini AI", title: "CodeLens — Review IA", desc: "SaaS de review de code IA en streaming temps réel. Éditeur Monaco intégré, analyse structurée par catégorie et sévérité, URL partageable, historique persisté. Déployé sur Vercel.", year: "2026" },
+                codelens: { type: "Next.js · TypeScript · Gemini AI", title: "CodeLens — Review IA", desc: "SaaS de review de code IA en streaming temps réel. Éditeur Monaco intégré, analyse structurée par catégorie et sévérité, URL partageable, historique persisté. Déployé sur Vercel.", year: "2026", badge: "&#9733; PROJET PHARE", liveBtn: "&#9654;&nbsp; ESSAYER EN LIVE", codeBtn: "&lt;/&gt;&nbsp; CODE SOURCE" },
                 viewGithub: "Voir Mon GitHub",
                 skillsHeading: "Compétences",
                 contactHeading: "Me Contacter",
-                contact: "Vous avez un projet en tête ou vous voulez collaborer ? J'aimerais beaucoup vous entendre !<br>N'hésitez pas à me contacter directement à<br><b class='hover:underline'>aminechbari08@gmail.com</b>."
+                contact: "Vous avez un projet en tête ou vous voulez collaborer ? J'aimerais beaucoup vous entendre !<br>N'hésitez pas à me contacter directement à<br><a href='mailto:aminechbari08@gmail.com' class='hover:underline' style='color:var(--neon-yellow)'><b>aminechbari08@gmail.com</b></a>.",
+                cvBtn: "&#x2B07;&nbsp; TÉLÉCHARGER MON CV"
             },
             en: {
                 nav: { about: "About", projects: "Projects", skills: "Skills", contact: "Contact" },
@@ -627,11 +641,12 @@
                 project6: { type: "Java · OOP · Swing", title: "V'Lille — Bike Sharing Network", desc: "Simulation of bike / scooter stations with an interactive Swing GUI and vector illustrations. 6 GoF design patterns (Observer, Strategy, State, Decorator, Visitor, Mediator), 100 JUnit tests.", year: "2025" },
                 project7: { type: "Node · Express · MongoDB", title: "Student & Group Manager", desc: "Full-stack app for student management with automatic distribution into 1–6 groups. REST CRUD API, Mongoose, Pug templates, dual HTML/JSON rendering via ?json=true.", year: "2024" },
                 project8: { type: "Node · Socket.IO", title: "Real-time Voting", desc: "Real-time voting app with admin and voter interfaces. WebSocket-based, instant result updates, glassmorphism design.", year: "2024" },
-                codelens: { type: "Next.js · TypeScript · Gemini AI", title: "CodeLens — AI Code Review", desc: "Real-time AI code review SaaS with streaming output. Monaco editor, structured analysis by category and severity, shareable URLs, persistent history. Deployed on Vercel.", year: "2026" },
+                codelens: { type: "Next.js · TypeScript · Gemini AI", title: "CodeLens — AI Code Review", desc: "Real-time AI code review SaaS with streaming output. Monaco editor, structured analysis by category and severity, shareable URLs, persistent history. Deployed on Vercel.", year: "2026", badge: "&#9733; FEATURED PROJECT", liveBtn: "&#9654;&nbsp; TRY IT LIVE", codeBtn: "&lt;/&gt;&nbsp; SOURCE CODE" },
                 viewGithub: "View My GitHub",
                 skillsHeading: "Skills",
                 contactHeading: "Contact me",
-                contact: "Got a project in mind or want to collaborate? I'd love to hear from you!<br>Feel free to reach me directly at<br><b class='hover:underline'>aminechbari08@gmail.com</b>."
+                contact: "Got a project in mind or want to collaborate? I'd love to hear from you!<br>Feel free to reach me directly at<br><a href='mailto:aminechbari08@gmail.com' class='hover:underline' style='color:var(--neon-yellow)'><b>aminechbari08@gmail.com</b></a>.",
+                cvBtn: "&#x2B07;&nbsp; DOWNLOAD MY RESUME"
             }
         };
 
@@ -639,6 +654,7 @@
 
         function setLanguage(lang) {
             currentLang = lang;
+            document.documentElement.lang = lang;
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 const key = el.getAttribute('data-i18n');
                 const keys = key.split('.');
@@ -666,6 +682,7 @@
         setLanguage('fr');
     </script>
     <script src="./scripts/background3d.js" defer></script>
+    <script src="./scripts/animations.js" defer></script>
 </body>
 
 </html>
