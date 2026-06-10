@@ -132,6 +132,21 @@
   let buddyY = 80;          // position courante (lerp)
   let lastY  = 80;
   let flameTimer = null;
+  let lastSection = -1;
+  let sectionTrackerBooted = false;
+
+  const sections = ['about', 'projects', 'skills', 'contact']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  // tir laser : trait néon qui part de l'invader vers la gauche
+  function fireLaser() {
+    const laser = document.createElement('div');
+    laser.className = 'buddy-laser';
+    buddy.appendChild(laser);
+    buddy.classList.add('buddy-firing');
+    setTimeout(() => { laser.remove(); buddy.classList.remove('buddy-firing'); }, 480);
+  }
 
   function buddyTick() {
     const doc = document.documentElement;
@@ -141,15 +156,30 @@
 
     buddyY += (targetY - buddyY) * 0.06; // inertie
 
+    // flottement permanent (idle bob) + oscillation latérale légère
+    const now = performance.now();
+    const bob  = Math.sin(now / 620) * 4;
+    const sway = Math.sin(now / 940) * 3;
+
     const moving = Math.abs(buddyY - lastY);
     buddy.style.transform =
-      'translateY(' + buddyY + 'px) scaleY(' + (buddyY < lastY - 0.2 ? -1 : 1) + ')';
+      'translate(' + sway + 'px,' + (buddyY + bob) + 'px) scaleY(' + (buddyY < lastY - 0.2 ? -1 : 1) + ')';
 
     // flamme visible uniquement quand ça bouge
     if (moving > 0.4) {
       buddy.classList.add('buddy-moving');
       clearTimeout(flameTimer);
       flameTimer = setTimeout(() => buddy.classList.remove('buddy-moving'), 200);
+    }
+
+    // tir laser quand on entre dans une nouvelle section
+    const mid = window.scrollY + window.innerHeight / 2;
+    let current = -1;
+    sections.forEach((s, i) => { if (s.offsetTop < mid) current = i; });
+    if (current !== lastSection) {
+      if (sectionTrackerBooted) fireLaser(); // pas de tir au chargement initial
+      lastSection = current;
+      sectionTrackerBooted = true;
     }
 
     lastY = buddyY;
