@@ -74,6 +74,48 @@
 
   revealTargets.forEach(el => io.observe(el));
 
+  /* ── 1bis. Effet "décodage" — glyphes aléatoires qui se résolvent ── */
+  const GLYPHS = '█▓▒░<>/\\|=+*#%@01';
+
+  function decode(el, dur) {
+    if (!el || el.dataset.decoding) return;
+    el.dataset.decoding = '1';
+    const orig  = el.textContent;
+    const n     = orig.length;
+    const start = performance.now();
+    (function frame() {
+      const p      = Math.min((performance.now() - start) / (dur || 900), 1);
+      const reveal = Math.floor(p * n);
+      let out = orig.slice(0, reveal);
+      for (let i = reveal; i < n; i++) {
+        const ch = orig[i];
+        out += (ch === ' ' || ch === ' ') ? ch : GLYPHS[(Math.random() * GLYPHS.length) | 0];
+      }
+      el.textContent = out;
+      if (p < 1) requestAnimationFrame(frame);
+      else { el.textContent = orig; delete el.dataset.decoding; }
+    })();
+  }
+
+  // titres de section : décodage à l'entrée dans le viewport
+  const decodeTargets = document.querySelectorAll('#projects-heading, #skills h2, #contact h2');
+  const dio = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { decode(e.target, 900); dio.unobserve(e.target); }
+    });
+  }, { threshold: 0.5 });
+  decodeTargets.forEach(el => dio.observe(el));
+
+  // tag du hero : petit "boot" au chargement
+  const heroTag = document.getElementById('hero-tag');
+  if (heroTag) setTimeout(() => decode(heroTag, 700), 250);
+
+  /* ── 1ter. Balayage CRT — ligne lumineuse qui parcourt l'écran ───── */
+  const sweep = document.createElement('div');
+  sweep.id = 'crt-sweep';
+  sweep.className = 'fx-layer';
+  document.body.appendChild(sweep);
+
   /* ── 2. Hero typewriter ─────────────────────────────────────────── */
   const heroLead = document.getElementById('hero-lead');
 
@@ -107,8 +149,56 @@
     card.addEventListener('mouseleave', () => { card.style.transform = ''; });
   });
 
-  /* ── 4. Scroll buddy — invader néon ─────────────────────────────── */
+  /* ── 3bis. Tir au clic — explosion de pixels + score ────────────── */
+  let credits = 0;
+  let hudCredits = null; // rempli par le HUD plus bas (desktop)
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('a, button, input, textarea, .menu-btn')) return;
+
+    // gerbe de pixels néon au point d'impact
+    for (let i = 0; i < 10; i++) {
+      const s   = document.createElement('div');
+      const ang = (i / 10) * Math.PI * 2 + Math.random() * 0.6;
+      const d   = 26 + Math.random() * 34;
+      s.className = 'blast-px fx-layer';
+      s.style.left = e.clientX + 'px';
+      s.style.top  = e.clientY + 'px';
+      s.style.setProperty('--dx', Math.cos(ang) * d + 'px');
+      s.style.setProperty('--dy', Math.sin(ang) * d + 'px');
+      document.body.appendChild(s);
+      setTimeout(() => s.remove(), 520);
+    }
+
+    // "+25" qui flotte et crédite le HUD
+    credits += 25;
+    const pop = document.createElement('div');
+    pop.className = 'blast-pop fx-layer';
+    pop.textContent = '+25';
+    pop.style.left = e.clientX + 'px';
+    pop.style.top  = e.clientY + 'px';
+    document.body.appendChild(pop);
+    setTimeout(() => pop.remove(), 700);
+    if (hudCredits) hudCredits.textContent = 'CREDITS ' + String(credits).padStart(6, '0');
+  });
+
+  /* ── 4. Scroll buddy — invader néon + HUD arcade ────────────────── */
   if (window.innerWidth < 768) return;
+
+  const hud = document.createElement('div');
+  hud.id = 'arcade-hud';
+  hud.className = 'fx-layer';
+  hud.innerHTML =
+    '<span id="hud-zone">ZONE 00 // INSERT COIN</span>' +
+    '<span id="hud-score">SCORE 000000</span>' +
+    '<span id="hud-credits">CREDITS 000000</span>' +
+    '<span id="hud-hi">HI 999999</span>';
+  document.body.appendChild(hud);
+  const hudZone  = hud.querySelector('#hud-zone');
+  const hudScore = hud.querySelector('#hud-score');
+  hudCredits     = hud.querySelector('#hud-credits');
+  const ZONES = ['ABOUT.EXE', 'PROJECTS.EXE', 'SKILLS.SYS', 'CONTACT.LOG'];
+  let flipTimer = null;
 
   const buddy = document.createElement('div');
   buddy.id = 'scroll-buddy';
@@ -172,12 +262,24 @@
       flameTimer = setTimeout(() => buddy.classList.remove('buddy-moving'), 200);
     }
 
-    // tir laser quand on entre dans une nouvelle section
+    // HUD : score arcade lié à la profondeur de scroll
+    hudScore.textContent = 'SCORE ' + String(Math.round(progress * 999999)).padStart(6, '0');
+
+    // tir laser + glitch CRT + changement de zone HUD à chaque section
     const mid = window.scrollY + window.innerHeight / 2;
     let current = -1;
     sections.forEach((s, i) => { if (s.offsetTop < mid) current = i; });
     if (current !== lastSection) {
-      if (sectionTrackerBooted) fireLaser(); // pas de tir au chargement initial
+      hudZone.textContent = current < 0
+        ? 'ZONE 00 // INSERT COIN'
+        : 'ZONE 0' + (current + 1) + ' // ' + ZONES[current];
+      if (sectionTrackerBooted) {           // pas d'effets au chargement initial
+        fireLaser();
+        decode(hudZone, 420);               // la zone se "décode"
+        document.body.classList.add('zone-flip');
+        clearTimeout(flipTimer);
+        flipTimer = setTimeout(() => document.body.classList.remove('zone-flip'), 340);
+      }
       lastSection = current;
       sectionTrackerBooted = true;
     }
