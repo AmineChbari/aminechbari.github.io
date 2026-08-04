@@ -76,7 +76,7 @@
     scene.add(particleCloud);
 
     /* ── 2. Wireframe cubes ────────────────────────────────────────── */
-    const CUBE_COLORS = [CYAN, PINK, YELLOW, GREEN, CYAN, PINK, YELLOW, CYAN];
+    const CUBE_COLORS = [PHOSPHOR, MOSS, PALE, DEEP, PHOSPHOR, MOSS, PALE, PHOSPHOR];
     const cubes = [];
 
     for (let i = 0; i < 16; i++) {
