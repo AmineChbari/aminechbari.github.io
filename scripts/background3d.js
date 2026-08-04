@@ -37,12 +37,12 @@
     camera.lookAt(0, 0, 0);
 
     /* ── Palette ───────────────────────────────────────────────────── */
-    const PHOSPHOR = new THREE.Color(0x3dffa2);  // vert phosphore vif
-    const MOSS     = new THREE.Color(0x1fa96a);  // vert sombre
-    const PALE     = new THREE.Color(0xd7ffe8);  // vert pâle (quasi blanc)
-    const DEEP     = new THREE.Color(0x0f7a4a);  // vert profond
-    // dominante phosphore pour le rendu "terminal"
-    const PALETTE = [PHOSPHOR, PHOSPHOR, PHOSPHOR, MOSS, MOSS, PALE, DEEP];
+    const CYAN   = new THREE.Color(0x00f5ff);
+    const PINK   = new THREE.Color(0xff2d95);
+    const YELLOW = new THREE.Color(0xffd166);
+    const GREEN  = new THREE.Color(0x39ff14);
+    // weighted toward cyan for that neon-blue dominant look
+    const PALETTE = [CYAN, CYAN, CYAN, PINK, PINK, YELLOW, GREEN];
 
     /* ── 1. Particle cloud ─────────────────────────────────────────── */
     const N   = 800;
@@ -76,7 +76,7 @@
     scene.add(particleCloud);
 
     /* ── 2. Wireframe cubes ────────────────────────────────────────── */
-    const CUBE_COLORS = [PHOSPHOR, MOSS, PALE, DEEP, PHOSPHOR, MOSS, PALE, PHOSPHOR];
+    const CUBE_COLORS = [CYAN, PINK, YELLOW, GREEN, CYAN, PINK, YELLOW, CYAN];
     const cubes = [];
 
     for (let i = 0; i < 16; i++) {
@@ -114,14 +114,14 @@
       return g;
     }
 
-    const gridMajor = makeGrid(320, 24, 0x3dffa2, 0.07);
-    const gridMinor = makeGrid(320, 80, 0x3dffa2, 0.025);
+    const gridMajor = makeGrid(320, 24, 0x00f5ff, 0.07);
+    const gridMinor = makeGrid(320, 80, 0x00f5ff, 0.025);
     scene.add(gridMajor);
     scene.add(gridMinor);
 
     /* ── 4. Neon horizon lines (horizontal streaks) ────────────────── */
     const horizonLines = [];
-    const hLineColors  = [PHOSPHOR, MOSS, PALE];
+    const hLineColors  = [CYAN, PINK, YELLOW];
 
     for (let i = 0; i < 6; i++) {
       const points = [
@@ -141,7 +141,7 @@
 
     /* ── 5. Floating diamond / octahedron shapes ───────────────────── */
     const diamonds = [];
-    const dColors  = [PHOSPHOR, MOSS, PALE, DEEP];
+    const dColors  = [CYAN, PINK, YELLOW, GREEN];
 
     for (let i = 0; i < 8; i++) {
       const sz   = 1.8 + Math.random() * 3.0;
@@ -176,12 +176,33 @@
       renderer.setSize(nW, nH);
     });
 
+    /* ── Souris : parallaxe du regard ───────────────────────────────── */
+    let mx = 0, my = 0;           // cible (normalisée -1..1)
+    let smx = 0, smy = 0;         // valeur lissée
+    window.addEventListener('mousemove', e => {
+      mx = (e.clientX / window.innerWidth)  * 2 - 1;
+      my = (e.clientY / window.innerHeight) * 2 - 1;
+    });
+
     /* ── Animation loop ─────────────────────────────────────────────── */
     let t = 0;
+    let gridZ = 0;
+    let lastSY = window.scrollY;
+    let vel = 0;                  // vélocité de scroll lissée (px/frame)
 
     function tick() {
       requestAnimationFrame(tick);
       t += 0.003;
+
+      // vélocité de scroll -> effet "warp"
+      const dy = window.scrollY - lastSY;
+      lastSY = window.scrollY;
+      vel += (dy - vel) * 0.08;
+      const warp = Math.min(Math.abs(vel) * 0.05, 2.4);
+
+      // parallaxe souris lissée
+      smx += (mx - smx) * 0.04;
+      smy += (my - smy) * 0.04;
 
       // Particle cloud: slow spin + gentle tilt
       particleCloud.rotation.y = t * 0.018;
@@ -201,21 +222,29 @@
         d.rotation.z += d.userData.rs.z;
       });
 
-      // Grid: scroll forward (synthwave road effect)
-      const gridScroll = (t * 12) % 13.3; // 320/24 ≈ 13.3 per cell
-      gridMajor.position.z = gridScroll;
-      gridMinor.position.z = gridScroll;
+      // Grid: scroll forward (synthwave road effect) + warp lié au scroll
+      gridZ = (gridZ + 0.036 + warp * 0.16) % 13.3; // 320/24 ≈ 13.3 par cellule
+      gridMajor.position.z = gridZ;
+      gridMinor.position.z = gridZ;
 
-      // Camera: subtle floating sway + plongée liée au scroll
+      // Camera: sway + plongée liée au scroll + parallaxe souris
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       const sp = maxScroll > 0 ? window.scrollY / maxScroll : 0;
-      camera.position.x = Math.sin(t * 0.055) * 6;
-      camera.position.y = 10 + Math.cos(t * 0.042) * 3.5 - sp * 7;
+      camera.position.x = Math.sin(t * 0.055) * 6 + smx * 7;
+      camera.position.y = 10 + Math.cos(t * 0.042) * 3.5 - sp * 7 - smy * 4;
       camera.position.z = 55 - sp * 16;
       camera.lookAt(0, -4 - sp * 4, 0);
 
-      // Particle opacity pulse (very subtle)
-      pmat.opacity = 0.55 + Math.sin(t * 0.6) * 0.06;
+      // inclinaison ("bank") dans le sens du scroll + zoom FOV en warp
+      camera.rotation.z += Math.max(-0.05, Math.min(0.05, -vel * 0.0006));
+      const targetFov = 60 + warp * 5;
+      if (Math.abs(camera.fov - targetFov) > 0.05) {
+        camera.fov += (targetFov - camera.fov) * 0.1;
+        camera.updateProjectionMatrix();
+      }
+
+      // Particle opacity pulse + boost en warp
+      pmat.opacity = 0.55 + Math.sin(t * 0.6) * 0.06 + warp * 0.05;
 
       renderer.render(scene, camera);
     }
