@@ -153,32 +153,38 @@
   let credits = 0;
   let hudCredits = null; // rempli par le HUD plus bas (desktop)
 
-  document.addEventListener('click', e => {
-    if (e.target.closest('a, button, input, textarea, .menu-btn')) return;
-
-    // gerbe de pixels néon au point d'impact
+  // gerbe de pixels néon en (x, y)
+  function spawnBlast(x, y) {
     for (let i = 0; i < 10; i++) {
       const s   = document.createElement('div');
       const ang = (i / 10) * Math.PI * 2 + Math.random() * 0.6;
       const d   = 26 + Math.random() * 34;
       s.className = 'blast-px fx-layer';
-      s.style.left = e.clientX + 'px';
-      s.style.top  = e.clientY + 'px';
+      s.style.left = x + 'px';
+      s.style.top  = y + 'px';
       s.style.setProperty('--dx', Math.cos(ang) * d + 'px');
       s.style.setProperty('--dy', Math.sin(ang) * d + 'px');
       document.body.appendChild(s);
       setTimeout(() => s.remove(), 520);
     }
+  }
 
-    // "+25" qui flotte et crédite le HUD
-    credits += 25;
+  // texte flottant qui monte et s'efface
+  function spawnPop(x, y, text) {
     const pop = document.createElement('div');
     pop.className = 'blast-pop fx-layer';
-    pop.textContent = '+25';
-    pop.style.left = e.clientX + 'px';
-    pop.style.top  = e.clientY + 'px';
+    pop.textContent = text;
+    pop.style.left = x + 'px';
+    pop.style.top  = y + 'px';
     document.body.appendChild(pop);
     setTimeout(() => pop.remove(), 700);
+  }
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('a, button, input, textarea, .menu-btn')) return;
+    spawnBlast(e.clientX, e.clientY);
+    spawnPop(e.clientX, e.clientY, '+25');
+    credits += 25;
     if (hudCredits) hudCredits.textContent = 'CREDITS ' + String(credits).padStart(6, '0');
   });
 
@@ -225,6 +231,33 @@
   let lastSection = -1;
   let sectionTrackerBooted = false;
 
+  /* fuite : l'invader est insaisissable — il esquive le curseur */
+  let mouseX = -9999, mouseY = -9999, mouseSeen = false;
+  window.addEventListener('mousemove', e => {
+    mouseX = e.clientX; mouseY = e.clientY; mouseSeen = true;
+  });
+  let fleeX = 0, fleeY = 0;   // décalage de fuite (par rapport à la croisière)
+  let fvx = 0, fvy = 0;       // vélocité de fuite
+  let jumpLock = 0;           // anti-spam du saut hyperespace
+
+  // acculé -> saut hyperespace : blast + "MISSED!" et réapparition ailleurs
+  function hyperjump(cx, cy) {
+    const nowT = performance.now();
+    if (nowT - jumpLock < 900) return;
+    jumpLock = nowT;
+    spawnBlast(cx, cy);
+    spawnPop(cx, cy, 'MISSED!');
+    const anchorX = window.innerWidth - 66; // right:22 + largeur 44
+    const targetX = mouseX < window.innerWidth / 2
+      ? anchorX - 30 - Math.random() * 60   // curseur à gauche -> il reste à droite
+      : 80 + Math.random() * 120;           // curseur à droite -> il file à gauche
+    fleeX = targetX - anchorX;
+    fleeY = 70 + Math.random() * (window.innerHeight - 240) - buddyY;
+    fvx = fvy = 0;
+    buddy.classList.add('buddy-warp');
+    setTimeout(() => buddy.classList.remove('buddy-warp'), 400);
+  }
+
   const sections = ['about', 'projects', 'skills', 'contact']
     .map(id => document.getElementById(id))
     .filter(Boolean);
@@ -251,12 +284,39 @@
     const bob  = Math.sin(now / 620) * 4;
     const sway = Math.sin(now / 940) * 3;
 
+    // ── Fuite : répulsion quand le curseur approche ──
+    const rct  = buddy.getBoundingClientRect();
+    const cx   = rct.left + rct.width / 2;
+    const cy   = rct.top + rct.height / 2;
+    const ddx  = cx - mouseX;
+    const ddy  = cy - mouseY;
+    const dist = Math.hypot(ddx, ddy);
+    const FLEE_R = 150;
+    let fleeing = false;
+    if (mouseSeen && dist < FLEE_R) {
+      fleeing = true;
+      const f = (1 - dist / FLEE_R) * 3.2;      // plus près = plus paniqué
+      fvx += (ddx / (dist || 1)) * f;
+      fvy += (ddy / (dist || 1)) * f;
+      if (dist < 38) hyperjump(cx, cy);          // presque attrapé !
+    }
+    fvx += -fleeX * 0.015;  fvy += -fleeY * 0.015;   // ressort vers la croisière
+    fvx *= 0.90;            fvy *= 0.90;             // friction
+    fleeX += fvx;           fleeY += fvy;
+
+    // bornes : rester visible dans l'écran
+    const anchorX = window.innerWidth - 66;
+    fleeX = Math.max(14 - anchorX, Math.min(fleeX, 14));
+    const topY = buddyY + bob + fleeY;
+    if (topY < 58) fleeY = 58 - buddyY - bob;
+    if (topY > window.innerHeight - 92) fleeY = window.innerHeight - 92 - buddyY - bob;
+
     const moving = Math.abs(buddyY - lastY);
     buddy.style.transform =
-      'translate(' + sway + 'px,' + (buddyY + bob) + 'px) scaleY(' + (buddyY < lastY - 0.2 ? -1 : 1) + ')';
+      'translate(' + (sway + fleeX) + 'px,' + (buddyY + bob + fleeY) + 'px) scaleY(' + (buddyY < lastY - 0.2 ? -1 : 1) + ')';
 
-    // flamme visible uniquement quand ça bouge
-    if (moving > 0.4) {
+    // flamme visible quand ça bouge ou que ça panique
+    if (moving > 0.4 || fleeing) {
       buddy.classList.add('buddy-moving');
       clearTimeout(flameTimer);
       flameTimer = setTimeout(() => buddy.classList.remove('buddy-moving'), 200);

@@ -876,3 +876,13 @@ body.zone-flip main { animation: crt-flip 0.30s steps(3, end); }
 @keyframes pop-rise {
   to { transform: translateY(-46px); opacity: 0; }
 }
+
+/* ── Saut hyperespace de l'invader (quand on a failli l'attraper) ───── */
+#scroll-buddy.buddy-warp { animation: buddy-warp 0.4s steps(1, end); }
+@keyframes buddy-warp {
+  0%   { opacity: 0; }
+  55%  { opacity: 0; }
+  70%  { opacity: 1; }
+  80%  { opacity: 0.25; }
+  100% { opacity: 1; }
+}
