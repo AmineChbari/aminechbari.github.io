@@ -37,12 +37,12 @@
     camera.lookAt(0, 0, 0);
 
     /* ── Palette ───────────────────────────────────────────────────── */
-    const CYAN   = new THREE.Color(0x00f5ff);
-    const PINK   = new THREE.Color(0xff2d95);
-    const YELLOW = new THREE.Color(0xffd166);
-    const GREEN  = new THREE.Color(0x39ff14);
-    // weighted toward cyan for that neon-blue dominant look
-    const PALETTE = [CYAN, CYAN, CYAN, PINK, PINK, YELLOW, GREEN];
+    const PHOSPHOR = new THREE.Color(0x3dffa2);  // vert phosphore vif
+    const MOSS     = new THREE.Color(0x1fa96a);  // vert sombre
+    const PALE     = new THREE.Color(0xd7ffe8);  // vert pâle (quasi blanc)
+    const DEEP     = new THREE.Color(0x0f7a4a);  // vert profond
+    // dominante phosphore pour le rendu "terminal"
+    const PALETTE = [PHOSPHOR, PHOSPHOR, PHOSPHOR, MOSS, MOSS, PALE, DEEP];
 
     /* ── 1. Particle cloud ─────────────────────────────────────────── */
     const N   = 800;
@@ -114,14 +114,14 @@
       return g;
     }
 
-    const gridMajor = makeGrid(320, 24, 0x00f5ff, 0.07);
-    const gridMinor = makeGrid(320, 80, 0x00f5ff, 0.025);
+    const gridMajor = makeGrid(320, 24, 0x3dffa2, 0.07);
+    const gridMinor = makeGrid(320, 80, 0x3dffa2, 0.025);
     scene.add(gridMajor);
     scene.add(gridMinor);
 
     /* ── 4. Neon horizon lines (horizontal streaks) ────────────────── */
     const horizonLines = [];
-    const hLineColors  = [CYAN, PINK, YELLOW];
+    const hLineColors  = [PHOSPHOR, MOSS, PALE];
 
     for (let i = 0; i < 6; i++) {
       const points = [
@@ -141,7 +141,7 @@
 
     /* ── 5. Floating diamond / octahedron shapes ───────────────────── */
     const diamonds = [];
-    const dColors  = [CYAN, PINK, YELLOW, GREEN];
+    const dColors  = [PHOSPHOR, MOSS, PALE, DEEP];
 
     for (let i = 0; i < 8; i++) {
       const sz   = 1.8 + Math.random() * 3.0;

@@ -115,7 +115,7 @@
   buddy.innerHTML =
     '<svg viewBox="0 0 11 8" width="44" height="32" aria-hidden="true">' +
       // invader 11×8 classique, dessiné en rects "pixels"
-      '<g fill="#39FF14">' +
+      '<g fill="#3DFFA2">' +
         '<rect x="2" y="0" width="1" height="1"/><rect x="8" y="0" width="1" height="1"/>' +
         '<rect x="3" y="1" width="1" height="1"/><rect x="7" y="1" width="1" height="1"/>' +
         '<rect x="2" y="2" width="7" height="1"/>' +
