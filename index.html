@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Portfolio d'Amine Chbari — développeur full-stack (Angular, React, Node.js, Java), étudiant M1 Ingénierie Logiciel à l'ISCOD, en recherche d'alternance à Lille.">
+    <meta name="description" content="Portfolio d'Amine Chbari — développeur full-stack (Angular, React, Node.js, Java), étudiant en Mastère Ingénierie Logiciel à l'ISCOD, en alternance à Lille.">
     <meta property="og:type" content="website">
     <meta property="og:title" content="Amine Chbari — Développeur Full-Stack">
-    <meta property="og:description" content="Portfolio arcade néon : projets web full-stack, jeux Canvas, design patterns Java. En recherche d'alternance (M1 Ingénierie Logiciel, ISCOD).">
+    <meta property="og:description" content="Portfolio arcade néon : projets web full-stack, jeux Canvas, design patterns Java. Mastère Ingénierie Logiciel (ISCOD), en alternance à Lille.">
     <meta property="og:url" content="https://aminechbari.github.io/">
     <meta property="og:image" content="https://aminechbari.github.io/images/main_portfolio_image.jpg">
     <link rel="icon" type="image/svg+xml" href="./images/favicon.svg">
@@ -48,7 +48,7 @@
         <section class="hero relative flex flex-col items-center justify-center text-center px-4 py-24">
 
             <!-- Decorative tag line -->
-            <p class="hero-tag" id="hero-tag" data-i18n="hero.tag">// M1 INGÉNIERIE LOGICIEL &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE</p>
+            <p class="hero-tag" id="hero-tag" data-i18n="hero.tag">// MASTÈRE INGÉNIERIE LOGICIEL &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE</p>
 
             <!-- Big name -->
             <h1 class="hero-name" id="hero-title" data-i18n="hero.title">AMINE<br>CHBARI</h1>
@@ -56,6 +56,11 @@
             <!-- Role + blinking cursor -->
             <p class="hero-role">
                 <span id="hero-lead" data-i18n="hero.lead">FULL-STACK DEVELOPER</span><span class="blink-cursor">_</span>
+            </p>
+
+            <!-- Statut -->
+            <p class="hero-status" id="hero-status" data-i18n="hero.status">
+                <span class="status-dot"></span>EN ALTERNANCE @ ACTEOS
             </p>
 
             <!-- CTA -->
@@ -68,7 +73,7 @@
             </div>
             <div class="flex flex-col justify-center items-start">
                 <h2 id="about-heading" data-i18n="about.heading" class="text-2xl mb-4 about-heading">Bonjour, je suis <span class="font-bold about-name">CHBARI Amine</span>.</h2>
-                <p id="about-para" data-i18n="about.para" class="about-para leading-relaxed">Étudiant en Master 1 Ingénierie Logiciel à l'ISCOD, en recherche d'<b style="color:var(--neon-yellow)">alternance</b>. Je travaille aussi bien côté front-end (Angular, React, JavaScript vanilla) que back-end (Node.js, Express, Java). De l'application web full-stack avec API REST et MongoDB jusqu'au jeu Canvas en passant par la simulation OOP avec design patterns, j'aime concevoir des expériences propres, maintenables et un peu spectaculaires.</p>
+                <p id="about-para" data-i18n="about.para" class="about-para leading-relaxed">Étudiant en Mastère Ingénierie Logiciel à l'ISCOD, en <b style="color:var(--neon-yellow)">alternance chez Acteos</b> à Lille, où je découvre l'univers des progiciels supply chain. Je travaille aussi bien côté front-end (Angular, React, JavaScript vanilla) que back-end (Node.js, Express, Java). De l'application web full-stack avec API REST et MongoDB jusqu'au jeu Canvas en passant par la simulation OOP avec design patterns, j'aime concevoir des expériences propres, maintenables et un peu spectaculaires.</p>
             </div>
         </section>
 
@@ -604,10 +609,10 @@
         const translations = {
             fr: {
                 nav: { about: "À propos", projects: "Projets", skills: "Compétences", contact: "Contact" },
-                hero: { tag: "// M1 INGÉNIERIE LOGICIEL &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE", title: "AMINE<br>CHBARI", lead: "FULL-STACK DEVELOPER", cta: "&#x25B6;&nbsp; VOIR MES PROJETS" },
+                hero: { tag: "// MASTÈRE INGÉNIERIE LOGICIEL &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE", title: "AMINE<br>CHBARI", lead: "FULL-STACK DEVELOPER", status: "<span class='status-dot'></span>EN ALTERNANCE @ ACTEOS", cta: "&#x25B6;&nbsp; VOIR MES PROJETS" },
                 about: {
                     heading: "Bonjour, je suis <span class='font-bold about-name'>CHBARI Amine</span>.",
-                    para: "Étudiant en Master 1 Ingénierie Logiciel à l'ISCOD, en recherche d'alternance. Je travaille aussi bien côté front-end (Angular, React, JavaScript vanilla) que back-end (Node.js, Express, Java). De l'application web full-stack avec API REST et MongoDB jusqu'au jeu Canvas en passant par la simulation OOP avec design patterns, j'aime concevoir des expériences propres, maintenables et un peu spectaculaires."
+                    para: "Étudiant en Mastère Ingénierie Logiciel à l'ISCOD, en <b style='color:var(--neon-yellow)'>alternance chez Acteos</b> à Lille, où je découvre l'univers des progiciels supply chain. Je travaille aussi bien côté front-end (Angular, React, JavaScript vanilla) que back-end (Node.js, Express, Java). De l'application web full-stack avec API REST et MongoDB jusqu'au jeu Canvas en passant par la simulation OOP avec design patterns, j'aime concevoir des expériences propres, maintenables et un peu spectaculaires."
                 },
                 projects: { heading: "Quelques projets" },
                 project1: { type: "Angular · Node.js · Docker", title: "Réservation de Motel", desc: "Site réactif adapté aux différentes tailles d'écran. Permet une expérience de réservation fluide avec sélection des chambres et des dates.", year: "2022" },
@@ -627,10 +632,10 @@
             },
             en: {
                 nav: { about: "About", projects: "Projects", skills: "Skills", contact: "Contact" },
-                hero: { tag: "// M1 SOFTWARE ENGINEERING &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE", title: "AMINE<br>CHBARI", lead: "FULL-STACK DEVELOPER", cta: "&#x25B6;&nbsp; VIEW MY PROJECTS" },
+                hero: { tag: "// MSC SOFTWARE ENGINEERING &nbsp;·&nbsp; ISCOD &nbsp;·&nbsp; LILLE", title: "AMINE<br>CHBARI", lead: "FULL-STACK DEVELOPER", status: "<span class='status-dot'></span>WORK-STUDY @ ACTEOS", cta: "&#x25B6;&nbsp; VIEW MY PROJECTS" },
                 about: {
                     heading: "Hello, I'm <span class='font-bold about-name'>CHBARI Amine</span>.",
-                    para: "Master's student (M1 Software Engineering) at ISCOD, currently looking for a work-study contract (alternance). I work both front-end (Angular, React, vanilla JavaScript) and back-end (Node.js, Express, Java). From full-stack web apps with REST APIs and MongoDB to Canvas games and OOP simulations using design patterns — I enjoy building clean, maintainable and slightly spectacular experiences."
+                    para: "Master's student in Software Engineering at ISCOD, on a work-study contract at <b style='color:var(--neon-yellow)'>Acteos</b> in Lille, where I'm discovering the world of supply chain software. I work both front-end (Angular, React, vanilla JavaScript) and back-end (Node.js, Express, Java). From full-stack web apps with REST APIs and MongoDB to Canvas games and OOP simulations using design patterns — I enjoy building clean, maintainable and slightly spectacular experiences."
                 },
                 projects: { heading: "Selected projects" },
                 project1: { type: "Angular · Node.js · Docker", title: "Motel Booking", desc: "Responsive site adapted to all screen sizes. Smooth booking experience with room and date selection.", year: "2022" },

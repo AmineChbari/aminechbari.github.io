@@ -758,3 +758,33 @@ body::before {
     rgba(0, 0, 0, 0.55) 100%
   );
 }
+/* ── Hero status (alternance en cours) ──────────────────────────────── */
+.hero-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.5rem;
+  letter-spacing: 0.12em;
+  color: #39FF14;
+  background: rgba(57,255,20,0.05);
+  border: 1px solid rgba(57,255,20,0.28);
+  border-radius: 999px;
+  padding: 9px 18px;
+  margin: -1.8rem 0 2.6rem;
+  text-shadow: 0 0 10px rgba(57,255,20,0.35);
+  box-shadow: 0 0 22px rgba(57,255,20,0.08), inset 0 0 14px rgba(57,255,20,0.03);
+}
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #39FF14;
+  box-shadow: 0 0 10px rgba(57,255,20,0.9);
+  animation: status-pulse 1.8s ease-in-out infinite;
+}
+@keyframes status-pulse {
+  0%, 100% { opacity: 1;    transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.8); }
+}
+@media (max-width: 640px) { .hero-status { font-size: 0.4rem; padding: 8px 14px; } }
