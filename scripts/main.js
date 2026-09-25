@@ -150,4 +150,200 @@
             copyLabel.textContent = t('contact.copy', 'Copy');
         }, 2000);
     });
+
+    /* ---------- Scroll progress bar ---------- */
+    const progress = document.getElementById('scrollProgress');
+    let progressQueued = false;
+    function updateProgress() {
+        progressQueued = false;
+        const max = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.transform = `scaleX(${max > 0 ? window.scrollY / max : 0})`;
+    }
+    window.addEventListener('scroll', () => {
+        if (!progressQueued) {
+            progressQueued = true;
+            requestAnimationFrame(updateProgress);
+        }
+    }, { passive: true });
+    updateProgress();
+
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    /* ---------- Cursor glow (desktop only) ---------- */
+    const glow = document.getElementById('cursorGlow');
+    if (finePointer && !reduceMotion) {
+        window.addEventListener('pointermove', (e) => {
+            glow.style.setProperty('--cx', e.clientX + 'px');
+            glow.style.setProperty('--cy', e.clientY + 'px');
+            glow.classList.add('on');
+        }, { passive: true });
+        document.addEventListener('pointerleave', () => glow.classList.remove('on'));
+    }
+
+    /* ---------- Project showcases: 3D tilt + scroll parallax ---------- */
+    const shows = Array.from(document.querySelectorAll('.show-media'));
+    if (!reduceMotion) {
+        if (finePointer) {
+            shows.forEach((media) => {
+                const frame = media.querySelector('.show-frame');
+                media.addEventListener('pointermove', (e) => {
+                    const r = frame.getBoundingClientRect();
+                    const x = (e.clientX - r.left) / r.width;
+                    const y = (e.clientY - r.top) / r.height;
+                    frame.style.setProperty('--ry', `${(x - 0.5) * 10}deg`);
+                    frame.style.setProperty('--rx', `${(0.5 - y) * 8}deg`);
+                    frame.style.setProperty('--mx', `${x * 100}%`);
+                    frame.style.setProperty('--my', `${y * 100}%`);
+                });
+                media.addEventListener('pointerleave', () => {
+                    frame.style.setProperty('--rx', '0deg');
+                    frame.style.setProperty('--ry', '0deg');
+                });
+            });
+        }
+
+        let parallaxQueued = false;
+        const parallax = () => {
+            parallaxQueued = false;
+            const vh = window.innerHeight;
+            shows.forEach((media) => {
+                const r = media.getBoundingClientRect();
+                if (r.bottom < 0 || r.top > vh) return;
+                // -1 when entering from below, +1 when leaving at the top
+                const t = (r.top + r.height / 2 - vh / 2) / (vh / 2 + r.height / 2);
+                media.querySelector('img').style.setProperty('--py', `${(t * 24).toFixed(1)}px`);
+            });
+        };
+        window.addEventListener('scroll', () => {
+            if (!parallaxQueued) {
+                parallaxQueued = true;
+                requestAnimationFrame(parallax);
+            }
+        }, { passive: true });
+        parallax();
+    }
+
+    /* ---------- Hero neural network ---------- */
+    const canvas = document.getElementById('neural');
+    const ctx = canvas && canvas.getContext('2d');
+    if (ctx) {
+        const COLORS = ['167,139,250', '34,211,238', '129,140,248'];
+        const LINK = 150;
+        let w = 0;
+        let h = 0;
+        let nodes = [];
+        let running = false;
+        let visible = true;
+        const mouse = { x: -9999, y: -9999 };
+
+        function resize() {
+            const dpr = Math.min(window.devicePixelRatio || 1, 2);
+            const r = canvas.getBoundingClientRect();
+            w = r.width;
+            h = r.height;
+            canvas.width = Math.round(w * dpr);
+            canvas.height = Math.round(h * dpr);
+            ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+            const count = Math.min(90, Math.round((w * h) / 15000));
+            nodes = Array.from({ length: count }, () => ({
+                x: Math.random() * w,
+                y: Math.random() * h,
+                vx: (Math.random() - 0.5) * 0.35,
+                vy: (Math.random() - 0.5) * 0.35,
+                r: Math.random() * 1.6 + 0.8,
+                c: COLORS[Math.floor(Math.random() * COLORS.length)],
+            }));
+        }
+
+        function frame() {
+            ctx.clearRect(0, 0, w, h);
+            for (const n of nodes) {
+                n.x += n.vx;
+                n.y += n.vy;
+                if (n.x < 0 || n.x > w) n.vx *= -1;
+                if (n.y < 0 || n.y > h) n.vy *= -1;
+                // gentle pull towards the cursor
+                const dx = mouse.x - n.x;
+                const dy = mouse.y - n.y;
+                const d2 = dx * dx + dy * dy;
+                if (d2 < 200 * 200) {
+                    n.x += dx * 0.004;
+                    n.y += dy * 0.004;
+                }
+            }
+            for (let i = 0; i < nodes.length; i++) {
+                const a = nodes[i];
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const b = nodes[j];
+                    const d = Math.hypot(a.x - b.x, a.y - b.y);
+                    if (d < LINK) {
+                        ctx.strokeStyle = `rgba(${a.c},${(1 - d / LINK) * 0.35})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(a.x, a.y);
+                        ctx.lineTo(b.x, b.y);
+                        ctx.stroke();
+                    }
+                }
+                const dm = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+                if (dm < 180) {
+                    ctx.strokeStyle = `rgba(34,211,238,${(1 - dm / 180) * 0.5})`;
+                    ctx.beginPath();
+                    ctx.moveTo(a.x, a.y);
+                    ctx.lineTo(mouse.x, mouse.y);
+                    ctx.stroke();
+                }
+                ctx.fillStyle = `rgba(${a.c},0.9)`;
+                ctx.beginPath();
+                ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+                ctx.fill();
+            }
+            if (running) requestAnimationFrame(frame);
+        }
+
+        function setRunning(on) {
+            if (on && !running) {
+                running = true;
+                requestAnimationFrame(frame);
+            } else if (!on) {
+                running = false;
+            }
+        }
+
+        resize();
+        if (reduceMotion) {
+            frame(); // one static frame
+        } else {
+            setRunning(true);
+            const hero = document.getElementById('top');
+            hero.addEventListener('pointermove', (e) => {
+                const r = canvas.getBoundingClientRect();
+                mouse.x = e.clientX - r.left;
+                mouse.y = e.clientY - r.top;
+            });
+            hero.addEventListener('pointerleave', () => {
+                mouse.x = -9999;
+                mouse.y = -9999;
+            });
+            if ('IntersectionObserver' in window) {
+                new IntersectionObserver(([entry]) => {
+                    visible = entry.isIntersecting;
+                    setRunning(visible && !document.hidden);
+                }).observe(hero);
+            }
+            document.addEventListener('visibilitychange', () => setRunning(visible && !document.hidden));
+        }
+        // Only rebuild on width changes: mobile URL bars resize the height while scrolling
+        let resizeTimer;
+        let lastWidth = window.innerWidth;
+        window.addEventListener('resize', () => {
+            if (window.innerWidth === lastWidth) return;
+            lastWidth = window.innerWidth;
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                resize();
+                if (reduceMotion) frame();
+            }, 200);
+        });
+    }
 })();
